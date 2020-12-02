@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="w3.org/1999/xhtml" xmlns:th="thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Sitio Web de subastas Online</title>
+<link rel="icon" type="image/vnd.microsoft.icon"
+	th:href="@{img/favicon.ico}">
+<link rel="stylesheet" href="#" th:href="@{/css/bootstrap.css}">
+<link rel="stylesheet" href="#" th:href="@{/css/all.min.css}">
+</head>
+<body>
+
+	<section class="row-login my-4 px-5 py-5 w-100">
+		<div class="container">
+			<div class="d-flex justify-content-center">
+				<h2>Gestión de Usuarios</h2>
+			</div>
+		</div>
+
+		<form class="mx-auto my-5"
+			th:action="@{/users/edit/{id}(id=${userId})}" th:object="${userData}"
+			method="POST">
+			<div class="row no-gutters">
+				<div class="col-lg-1 d-flex justify-content-start ml-5 mr-2 align-items-center">
+                    <label for="nombre">Nombre: </label>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="nombre" th:field="*{name}">
+                    </div>
+                </div>
+			</div>
+			<div class="row no-gutters">
+				<div class="col-lg-1 d-flex justify-content-start ml-5 mr-2 align-items-center">
+                    <label for="email">Correo: </label>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="email" th:field="*{email}">
+                    </div>
+                </div>
+			</div>
+		</form>
+			
+		<div class="table-responsive mt-5">
+			<table class="table table-bordered table-hover table-sm">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Nombre</th>
+						<th>Correo</th>
+						<th class="text-center">Editar</th>
+						<th class="text-center">Eliminar</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="user, iterator : ${users}"
+						th:style="${iterator.odd}? 'color: black' : 'color:grey'">
+						<td th:text="${iterator.index}"></td>
+						<td th:text="${user.name}"></td>
+						<td th:text="${user.email}"></td>
+						<td class="text-center"><a
+							th:href="@{/users/edit/{id}(id=${user.id})}"> <span
+								class="fas fa-edit text-success"></span></a></td>
+						<td class="text-center"><a
+							th:href="@{/users/delete/{id}(id=${user.id})}"> <span
+								class="fas fa-times"></span></a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+
+	<script type="text/javascript" th:src="@{js/jquery-3.5.1.js}"></script>
+	<script type="text/javascript" th:src="@{js/popper.js}"></script>
+	<script type="text/javascript" th:src="@{js/bootstrap.min.js}"></script>
+</body>
+</html>
