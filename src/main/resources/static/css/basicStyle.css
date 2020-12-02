@@ -1,0 +1,16 @@
+@charset "ISO-8859-1";
+
+
+#containerTable{
+	border-top: 65px;
+	width: 90%;
+	margin: 0px auto;
+	
+}
+
+#alert{
+	width: 80%;
+	margin: 0px auto;
+	border-bottom: 25px;
+	border-top: 25px;
+}
