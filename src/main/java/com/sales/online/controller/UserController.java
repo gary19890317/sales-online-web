@@ -40,6 +40,8 @@ public class UserController {
   @PostMapping("/users/edit/{id}")
   public String updateUser(@ModelAttribute User userData, @PathVariable int id, Model model) {
     userService.save(userData);
+    model.addAttribute("userData", userData);
+    model.addAttribute("userId", id);
     return "editUser";
   }
 
