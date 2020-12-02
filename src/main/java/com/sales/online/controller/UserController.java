@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.sales.online.model.User;
 import com.sales.online.service.UserService;
@@ -25,9 +26,18 @@ public class UserController {
     return "users";
   }
 
-  @PostMapping("/users/addUser")
+  /**
+ * @param userData
+ * @param model
+ * @return
+ */
+@PostMapping("/users/addUser")
   public String addUser(@ModelAttribute User userData, Model model) {
+	userService.save(userData);
+	
     model.addAttribute("userData", userData);
+    model.addAttribute("success", true);
+    
     return "addUser";
   }
 

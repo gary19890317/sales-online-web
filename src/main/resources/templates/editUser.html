@@ -16,6 +16,10 @@
 				<h2>Modificar Usuario</h2>
 			</div>
 
+			<div th:if="${}" class="alert alert-success" role="alert">
+			  A simple success alert—check it out!
+			</div>
+			
 			<form class="mx-auto my-5"
 				th:action="@{/users/edit/{id}(id=${userId})}"
 				th:object="${userData}" method="POST">
