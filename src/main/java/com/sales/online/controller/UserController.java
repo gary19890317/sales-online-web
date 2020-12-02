@@ -6,12 +6,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sales.online.model.User;
 import com.sales.online.service.UserService;
 
-@Controller
+@Controller 
 public class UserController {
 
   private final UserService userService;
@@ -30,15 +32,14 @@ public class UserController {
  * @param userData
  * @param model
  * @return
- */
+ */ 
 @PostMapping("/users/addUser")
-  public String addUser(@ModelAttribute User userData, Model model) {
+  public String addUser(@ModelAttribute User userData, Model model, RedirectAttributes redirectAttributes) {
 	userService.save(userData);
-	
     model.addAttribute("userData", userData);
-    model.addAttribute("success", true);
+    redirectAttributes.addFlashAttribute("mensaje", "Usuario agregado");
     
-    return "addUser";
+    return "redirect:/users/addUser";
   }
 
   @GetMapping("/users/addUser")
@@ -47,12 +48,15 @@ public class UserController {
     return "addUser";
   }
 
+  
   @PostMapping("/users/edit/{id}")
-  public String updateUser(@ModelAttribute User userData, @PathVariable int id, Model model) {
+  public String updateUser(@ModelAttribute User userData, @PathVariable int id, Model model,RedirectAttributes atts) {
     userService.save(userData);
     model.addAttribute("userData", userData);
     model.addAttribute("userId", id);
-    return "editUser";
+    atts.addFlashAttribute("mensaje", "Usuario actualizado");
+    
+    return "redirect:/users";
   }
 
   @GetMapping("/users/edit/{id}")

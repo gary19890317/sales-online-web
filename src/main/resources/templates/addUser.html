@@ -7,6 +7,7 @@
 	th:href="@{img/favicon.ico}">
 <link rel="stylesheet" href="#" th:href="@{/css/bootstrap.css}">
 <link rel="stylesheet" href="#" th:href="@{/css/all.min.css}">
+<link rel="stylesheet" href="#" th:href="@{/css/basicStyle.css}">
 </head>
 <body>
 
@@ -16,7 +17,9 @@
 				<h2>Alta de Usuarios</h2>
 			</div>
 			
+			<div id="alert" class="alert alert-success" th:if="${mensaje!=null}" th:text="${mensaje}" role="alert">
 			
+			</div>
 			
 			<form class="mx-auto my-5" th:action="@{/users/addUser}"
 				th:object="${userData}" method="POST">

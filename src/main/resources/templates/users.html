@@ -21,7 +21,7 @@
 		<div class="ml-2 d-flex justify-content-between">
             <a class="btn btn-secondary" th:href="@{/users/addUser}">Agregar Usuario</a>
         </div>
-        	
+
 		<!--div class="table-responsive mt-5">
 			<table class="table table-bordered table-hover table-sm">
 				<thead>
@@ -54,8 +54,11 @@
 		
 		
 	</section>
-
+	
 	<div id="containerTable">
+	<div id="alert"class="alert alert-success" th:if="${mensaje!=null}" th:text="${mensaje}" role="alert">
+			
+	</div>
 		<table id="tableUser" class="table table-striped ">
 			<thead>
 				<tr>
@@ -84,6 +87,7 @@
 					</tr> 
 			</tbody>
 		</table>
+		
 		</div>
 	<script type="text/javascript" th:src="@{js/jquery-3.5.1.js}"></script>
 	<script type="text/javascript" th:src="@{js/popper.js}"></script>
