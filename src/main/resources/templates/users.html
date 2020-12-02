@@ -7,6 +7,7 @@
 	th:href="@{img/favicon.ico}">
 <link rel="stylesheet" href="#" th:href="@{/css/bootstrap.css}">
 <link rel="stylesheet" href="#" th:href="@{/css/all.min.css}">
+<link rel="stylesheet" href="#" th:href="@{/css/basicStyle.css}">
 </head>
 <body>
 
@@ -21,7 +22,7 @@
             <a class="btn btn-secondary" th:href="@{/users/addUser}">Agregar Usuario</a>
         </div>
         	
-		<div class="table-responsive mt-5">
+		<!--div class="table-responsive mt-5">
 			<table class="table table-bordered table-hover table-sm">
 				<thead>
 					<tr>
@@ -49,9 +50,41 @@
 					</tr>
 				</tbody>
 			</table>
-		</div>
+		</div-->
+		
+		
 	</section>
 
+<div id="containerTable">
+		<table id="tableUser" class="table table-striped ">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Nombre</th>
+					<th scope="col">Correo</th>
+					<th scope="col">Dirección</th>
+					<th scope="col">Editar</th>
+					<th scope="col">Eliminar</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="user, iterator : ${users}"
+						th:style="${iterator.odd}? 'color: black' : 'color:grey'">
+						<td th:text="${iterator.index + 1}"></td>
+						<td th:text="${user.name}"></td>
+						<td th:text="${user.email}"></td>
+						<td th:text="${user.address}"></td>
+						<td class="text-center"><a
+							th:href="@{/users/edit/{id}(id=${user.id})}"> <span
+								class="fas fa-edit text-success"></span></a></td>
+						<td class="text-center"><a
+							th:href="@{/users/delete/{id}(id=${user.id})}"> <span
+								class="fas fa-times"></span></a></td>
+					</tr> 
+			</tbody>
+		</table>
+		</div>
 	<script type="text/javascript" th:src="@{js/jquery-3.5.1.js}"></script>
 	<script type="text/javascript" th:src="@{js/popper.js}"></script>
 	<script type="text/javascript" th:src="@{js/bootstrap.min.js}"></script>
