@@ -61,16 +61,15 @@ public class UserController {
       return "addUser";
     } else {
       try {
-    	  
-    	if(userData.getPassword().equals(userData.getConfirmPassword())) {
-    		userService.save(userData);
-            sendMail(userData);
-            redirectAttributes.addFlashAttribute("mensaje", "Usuario agregado");	
-    	}else {
-    		model.addAttribute("mensaje", "Las contraseñas no son iguales");
-    		return "addUser";
-    	}
-        
+        if (userData.getPassword().equals(userData.getConfirmPassword())) {
+          userService.save(userData);
+          sendMail(userData);
+          redirectAttributes.addFlashAttribute("mensaje", "Usuario agregado");
+        } else {
+          model.addAttribute("mensaje", "Las contraseñas no son iguales");
+          return "addUser";
+        }
+
       } catch (Exception e) {
         e.printStackTrace();
         model.addAttribute("mensaje", "Error al guardar el usuario: " + e.getMessage());
@@ -95,8 +94,13 @@ public class UserController {
     if (result.hasErrors()) {
       return "editUser";
     } else {
-      userService.save(userData);
-      atts.addFlashAttribute("mensaje", "Usuario actualizado");
+      if (userData.getPassword().equals(userData.getConfirmPassword())) {
+        userService.save(userData);
+        atts.addFlashAttribute("mensaje", "Usuario actualizado");
+      } else {
+        model.addAttribute("mensaje", "Las contraseñas no son iguales");
+        return "addUser";
+      }
       return "redirect:/users";
     }
   }

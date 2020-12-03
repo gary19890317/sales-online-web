@@ -2,7 +2,6 @@ package com.sales.online.model;
 
 import java.util.Objects;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,12 +19,11 @@ public class User {
 
   @NotBlank(message = "Rellenar el campo de dirección")
   private String email;
-  
+
   @NotBlank(message = "Rellenar el campo contraseña")
   private String password;
-  
-  @NotBlank(message = "No hay coincidencia en las contraseñas")
-  @Column(insertable = false,updatable = false)
+
+  @NotBlank(message = "Rellenar el campo confirmar contraseña")
   private String confirmPassword;
 
   @NotBlank(message = "Rellenar el campo correo")
@@ -33,13 +31,20 @@ public class User {
 
   public User() {}
 
-  public User(int id, String name, String email, String password,String address) {
+  public User(
+      int id,
+      @NotBlank(message = "Rellenar el campo nombre") String name,
+      @NotBlank(message = "Rellenar el campo de dirección") String email,
+      @NotBlank(message = "Rellenar el campo contraseña") String password,
+      @NotBlank(message = "Rellenar el campo confirmar contraseña") String confirmPassword,
+      @NotBlank(message = "Rellenar el campo correo") String address) {
     super();
     this.id = id;
     this.name = name;
     this.email = email;
-    this.password=password;
-    this.address=address;
+    this.password = password;
+    this.confirmPassword = confirmPassword;
+    this.address = address;
   }
 
   public int getId() {
@@ -66,25 +71,25 @@ public class User {
     this.email = email;
   }
 
-	public String getPassword() {
-		return password;
-	}
+  public String getPassword() {
+    return password;
+  }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-	public String getAddress() {
-		return address;
-	}
+  public String getAddress() {
+    return address;
+  }
 
-	public String getConfirmPassword() {
-		return confirmPassword;
-	}
+  public String getConfirmPassword() {
+    return confirmPassword;
+  }
 
-	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
-	}
+  public void setConfirmPassword(String confirmPassword) {
+    this.confirmPassword = confirmPassword;
+  }
 
   public void setAddress(String address) {
     this.address = address;
@@ -92,7 +97,7 @@ public class User {
 
   @Override
   public int hashCode() {
-    return Objects.hash(address, email, id, name);
+    return Objects.hash(address, confirmPassword, email, id, name, password);
   }
 
   @Override
@@ -105,9 +110,11 @@ public class User {
     }
     User other = (User) obj;
     return Objects.equals(address, other.address)
+        && Objects.equals(confirmPassword, other.confirmPassword)
         && Objects.equals(email, other.email)
         && id == other.id
-        && Objects.equals(name, other.name);
+        && Objects.equals(name, other.name)
+        && Objects.equals(password, other.password);
   }
 
   @Override

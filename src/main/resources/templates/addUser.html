@@ -31,27 +31,66 @@
 					th:action="@{/users/addUser}" th:object="${userData}" method="POST">
 
 					<p class="h4 mb-4">Registro de Usuario</p>
-
+					
 					<!-- Name -->
-					<input type="text" id="name" class="form-control mb-4"
-						placeholder="Nombre" th:field="*{name}">
-
+					<div class="input-group ">
+						<div class="input-group-prepend">
+		                    <div class="input-group-text"><i class="fa fa-user fa-fw"></i></div>
+		                </div>
+		                <input type="text" class="form-control is-invalid" placeholder="Nombre" 
+		                	th:field="*{name}">
+		                <div class="invalid-feedback order-last" th:if="${#fields.hasErrors('name')}"
+		                	th:errors="*{name}">
+		                </div>
+					</div>
+					<br th:if="${!#fields.hasErrors('name')}">
 					<!-- Email -->
-					<input type="email" id="email" class="form-control mb-4"
-						placeholder="Correo electrónico" th:field="*{email}">
-
+					<div class="input-group ">
+						<div class="input-group-prepend">
+		                    <div class="input-group-text"><i class="fa fa-envelope fa-fw"></i></div>
+		                </div>
+		                <input type="email" class="form-control is-invalid" placeholder="Correo electrónico" 
+		                	th:field="*{email}">
+		                <div class="invalid-feedback order-last" th:if="${#fields.hasErrors('email')}"
+		                	th:errors="*{email}">
+		                </div>
+					</div>
+					<br th:if="${!#fields.hasErrors('email')}">
 					<!-- Address -->
-					<input type="text" id="address" class="form-control mb-4"
-						placeholder="Dirección" th:field="*{address}">
-
+					<div class="input-group ">
+						<div class="input-group-prepend">
+		                    <div class="input-group-text"><i class="fa fa-edit fa-fw"></i></div>
+		                </div>
+		                <input type="text" class="form-control is-invalid" placeholder="Dirección" 
+		                	th:field="*{address}">
+		                <div class="invalid-feedback order-last" th:if="${#fields.hasErrors('address')}"
+		                	th:errors="*{address}">
+		                </div>
+					</div>
+					<br th:if="${!#fields.hasErrors('address')}">
 					<!-- Password -->
-					<input type="password" id="password" class="form-control mb-4"
-						placeholder="Contraseña" th:field="*{password}">
-
+					<div class="input-group ">
+						<div class="input-group-prepend">
+		                    <div class="input-group-text"><i class="fa fa-key fa-fw"></i></div>
+		                </div>
+		                <input type="password" class="form-control is-invalid" placeholder="Contraseña" 
+		                	th:field="*{password}">
+		                <div class="invalid-feedback order-last" th:if="${#fields.hasErrors('password')}"
+		                	th:errors="*{password}">
+		                </div>
+					</div>
+					<br th:if="${!#fields.hasErrors('password')}">
 					<!-- Password Confirmation-->
-					<input type="password" id="passwordConfirmation"
-						class="form-control mb-4" placeholder="Confirma contraseña" 
-						th:field="*{confirmPassword}">
+					<div class="input-group ">
+						<div class="input-group-prepend">
+		                    <div class="input-group-text"><i class="fa fa-key fa-fw"></i></div>
+		                </div>
+		                <input type="password" class="form-control is-invalid" placeholder="Confirma contraseña" 
+		                	th:field="*{confirmPassword}">
+		                <div class="invalid-feedback order-last" th:if="${#fields.hasErrors('confirmPassword')}"
+		                	th:errors="*{confirmPassword}">
+		                </div>
+					</div>
 					
 					<button class="btn btn-info btn-block my-4" type="submit">Registrarse</button>
 
