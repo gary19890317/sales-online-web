@@ -11,75 +11,67 @@
 </head>
 <body>
 
-	<section class="row-login my-4 px-5 py-5 w-100">
-		<div class="container">
-			<div class="d-flex justify-content-center">
-				<h2>Modificar Usuario</h2>
-			</div>
+	<div class="container-fluid">
+		<br>
+		<a th:href="@{/users}">
+			<button id="cancel" type="button" class="mx-2 btn btn-danger">
+				<i class="fas fa-times"></i> Atrás
+			</button>
+		</a>
+		<div id="alert" class="alert alert-success" th:if="${mensaje!=null}"
+			th:text="${mensaje}" role="alert"></div>
+		<br>
+	</div>
+	
+	<div class="container-fluid">
+		<div class="row justify-content-center align-self-center">
+			<div class="col col-sm-6 col-md-6 col-lg-4 col-xl-3 h-100">
+				<!-- Default form login -->
+				<form class="text-center border border-light p-5"
+					th:action="@{/users/edit/{id}(id=${userData.id})}" 
+					th:object="${userData}" method="POST">
 
-			<div id="alert" class="alert alert-success" th:if="${mensaje!=null}"
-				th:text="${mensaje}" role="alert"></div>
-		</div>
-	</section>
-	<div id="bodySection">
-		<form class="mx-auto my-5"
-			th:action="@{/users/edit/{id}(id=${userData.id})}" th:object="${userData}"
-			method="POST">
-			<div id="containerForm">
-				<div class="row no-gutters" id="justifyContentFlex">
-					<div
-						class="col-lg-1 d-flex justify-content-start ml-5 mr-2 align-items-center">
-						<label for="nombre">Nombre: </label>
-					</div>
-					<div class="col-lg-4">
-						<div class="form-group">
-							<input type="text" class="form-control" id="nombre"
-								th:field="*{name}">
-						</div>
-					</div>
-					<br /> <span th:if="${#fields.hasErrors('name')}"
-						th:errors="*{name}">Requerido*</span>
-				</div>
-				<div class="row no-gutters" id="justifyContentFlex">
-					<div
-						class="col-lg-1 d-flex justify-content-start ml-5 mr-2 align-items-center">
-						<label for="email">Correo: </label>
-					</div>
-					<div class="col-lg-4">
-						<div class="form-group">
-							<input type="text" class="form-control" id="email"
-								th:field="*{email}">
-						</div>
-					</div>
-					<br /> <span th:if="${#fields.hasErrors('email')}"
-						th:errors="*{email}">Requerido*</span>
-				</div>
-				<div class="row no-gutters" id="justifyContentFlex">
-					<div
-						class="col-lg-1 d-flex justify-content-start ml-5 mr-2 align-items-center">
-						<label for="address">Direccion: </label>
-					</div>
-					<div class="col-lg-4">
-						<div class="form-group">
-							<input type="text" class="form-control" id="address"
-								th:field="*{address}">
-						</div>
-					</div>
-					<br /> <span th:if="${#fields.hasErrors('address')}"
-						th:errors="*{address}">Requerido*</span>
-				</div>
-				<div class="d-flex justify-content-center">
-					<a th:href="@{/users}">
-						<button type="button" class="mx-2 btn btn-danger">
-							<i class="fas fa-times"></i> Cancelar
-						</button>
+					<p class="h4 mb-4">Actualizar Usuario</p>
+
+					<!-- Name -->
+					<input type="text" id="name" class="form-control mb-4"
+						placeholder="Nombre" th:field="*{name}">
+
+					<!-- Email -->
+					<input type="email" id="email" class="form-control mb-4"
+						placeholder="Correo electrónico" th:field="*{email}">
+
+					<!-- Address -->
+					<input type="text" id="address" class="form-control mb-4"
+						placeholder="Dirección" th:field="*{address}">
+
+					<!-- Password -->
+					<input type="password" id="password" class="form-control mb-4"
+						placeholder="Contraseña">
+
+					<!-- Password Confirmation-->
+					<input type="password" id="passwordConfirmation"
+						class="form-control mb-4" placeholder="Confirma contraseña">
+
+					<button class="btn btn-info btn-block my-4" type="submit">Actualizar</button>
+
+					<a href="#" class="mx-2" role="button">
+						<i class="fab fa-facebook-f light-blue-text"></i>
+					</a> 
+					<a href="#" class="mx-2" role="button">
+						<i class="fab fa-twitter light-blue-text"></i>
+					</a> 
+					<a href="#" class="mx-2" role="button">
+						<i class="fab fa-linkedin-in light-blue-text"></i>
+					</a> 
+					<a href="#" class="mx-2" role="button">
+						<i class="fab fa-github light-blue-text"></i>
 					</a>
-					<button type="submit" class="mx-2 btn btn-primary">
-						<i class="fas fa-save"></i> Guardar
-					</button>
-				</div>
+
+				</form>
+				<!-- Default form login -->
 			</div>
-		</form>
+		</div>
 	</div>
 
 	<script type="text/javascript" th:src="@{js/jquery-3.5.1.js}"></script>
