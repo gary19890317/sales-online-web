@@ -39,7 +39,7 @@ public class UserController {
  */ 
 	@PostMapping("/users/addUser")
 	public String addUser(@Valid @ModelAttribute User userData,BindingResult result, Model model, RedirectAttributes redirectAttributes) {
-
+ 
 		
 		if (result.hasErrors()) {
 			List<FieldError> lista=result.getFieldErrors();
