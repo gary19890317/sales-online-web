@@ -22,10 +22,11 @@
 		</div>
 	</section>
 	<div id="bodySection">
-		<form class="mx-auto my-5" 
-		    th:action="@{/users/addUser}" th:object="${userData}" 
-		    method="POST">
+
+		<form id="formUser" class="mx-auto my-5" th:action="@{/users/addUser}"
+			th:object="${userData}" method="POST">
 			<div id="containerForm">
+
 				<div class="row no-gutters" id="justifyContentFlex">
 					<div
 						class="col-lg-1 d-flex justify-content-start ml-5 mr-2 align-items-center ">
@@ -37,6 +38,8 @@
 								th:field="*{name}">
 						</div>
 					</div>
+					<br/> 
+					<span th:if="${nameError !=null}" th:text="${nameError}"></span>
 				</div>
 				<div class="row no-gutters" id="justifyContentFlex">
 					<div
@@ -49,6 +52,8 @@
 								th:field="*{email}">
 						</div>
 					</div>
+					<br/>
+					<span th:if="${emailError !=null}" th:text="${emailError}"></span>
 				</div>
 				<div class="row no-gutters" id="justifyContentFlex">
 					<div
@@ -58,11 +63,13 @@
 					<div class="col-lg-4">
 						<div class="form-group">
 							<input type="text" class="form-control" id="address"
-								th:field="*{address}">
+								th:field="*{address}" >
 						</div>
 					</div>
+					<br/>
+					<span th:if="${addressError !=null}" th:text="${addressError}"></span>
 				</div>
-				<div class="d-flex justify-content-center">
+				<div id="containerSaveCancel" class="d-flex justify-content-center">
 					<a th:href="@{/users}">
 						<button id="cancel" type="button" class="mx-2 btn btn-danger">
 							<i class="fas fa-times"></i> Cancelar
