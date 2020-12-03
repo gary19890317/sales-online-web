@@ -16,20 +16,18 @@
 			<div class="d-flex justify-content-center">
 				<h2>Alta de Usuarios</h2>
 			</div>
-			
-			<div id="alert" class="alert alert-success" th:if="${mensaje!=null}" th:text="${mensaje}" role="alert">
-			
-			</div>
+
+			<div id="alert" class="alert alert-success" th:if="${mensaje!=null}"
+				th:text="${mensaje}" role="alert"></div>
 		</div>
 	</section>
 	<div id="bodySection">
-	
-	<form id="formUser" class="mx-auto my-5" th:action="@{/users/addUser}"
-				th:object="${userData}" method="POST">
-				<div id="containerForm">
-				
+		<form class="mx-auto my-5" 
+		    th:action="@{/users/addUser}" th:object="${userData}" 
+		    method="POST">
+			<div id="containerForm">
 				<div class="row no-gutters" id="justifyContentFlex">
-					<div 
+					<div
 						class="col-lg-1 d-flex justify-content-start ml-5 mr-2 align-items-center ">
 						<label for="nombre">Nombre: </label>
 					</div>
@@ -74,9 +72,9 @@
 						<i class="fas fa-save"></i> Guardar
 					</button>
 				</div>
-				</div>
-			</form>
 			</div>
+		</form>
+	</div>
 
 	<script type="text/javascript" th:src="@{js/jquery-3.5.1.js}"></script>
 	<script type="text/javascript" th:src="@{js/popper.js}"></script>

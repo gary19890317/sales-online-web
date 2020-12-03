@@ -7,6 +7,7 @@
 	th:href="@{img/favicon.ico}">
 <link rel="stylesheet" href="#" th:href="@{/css/bootstrap.css}">
 <link rel="stylesheet" href="#" th:href="@{/css/all.min.css}">
+<link rel="stylesheet" href="#" th:href="@{/css/basicStyle.css}">
 </head>
 <body>
 
@@ -15,11 +16,17 @@
 			<div class="d-flex justify-content-center">
 				<h2>Modificar Usuario</h2>
 			</div>
-			
-			<form class="mx-auto my-5"
-				th:action="@{/users/edit/{id}(id=${userId})}"
-				th:object="${userData}" method="POST">
-				<div class="row no-gutters">
+
+			<div id="alert" class="alert alert-success" th:if="${mensaje!=null}"
+				th:text="${mensaje}" role="alert"></div>
+		</div>
+	</section>
+	<div id="bodySection">
+		<form class="mx-auto my-5"
+			th:action="@{/users/edit/{id}(id=${userId})}" th:object="${userData}"
+			method="POST">
+			<div id="containerForm">
+				<div class="row no-gutters" id="justifyContentFlex">
 					<div
 						class="col-lg-1 d-flex justify-content-start ml-5 mr-2 align-items-center">
 						<label for="nombre">Nombre: </label>
@@ -31,7 +38,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="row no-gutters">
+				<div class="row no-gutters"  id="justifyContentFlex">
 					<div
 						class="col-lg-1 d-flex justify-content-start ml-5 mr-2 align-items-center">
 						<label for="email">Correo: </label>
@@ -43,7 +50,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="row no-gutters">
+				<div class="row no-gutters"  id="justifyContentFlex">
 					<div
 						class="col-lg-1 d-flex justify-content-start ml-5 mr-2 align-items-center">
 						<label for="address">Direccion: </label>
@@ -65,9 +72,9 @@
 						<i class="fas fa-save"></i> Guardar
 					</button>
 				</div>
-			</form>
-		</div>
-	</section>
+			</div>
+		</form>
+	</div>
 
 	<script type="text/javascript" th:src="@{js/jquery-3.5.1.js}"></script>
 	<script type="text/javascript" th:src="@{js/popper.js}"></script>
