@@ -61,9 +61,15 @@ public class UserController {
       return "addUser";
     } else {
       try {
-        userService.save(userData);
-        sendMail(userData);
-        redirectAttributes.addFlashAttribute("mensaje", "Usuario agregado");
+    	  
+    	if(userData.getPassword().equals(userData.getConfirmPassword())) {
+    		userService.save(userData);
+            sendMail(userData);
+            redirectAttributes.addFlashAttribute("mensaje", "Usuario agregado");	
+    	}else {
+    		return "addUser";
+    	}
+        
       } catch (Exception e) {
         e.printStackTrace();
         model.addAttribute("mensaje", "Error al guardar el usuario: " + e.getMessage());

@@ -2,6 +2,7 @@ package com.sales.online.model;
 
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,17 +20,26 @@ public class User {
 
   @NotBlank(message = "Rellenar el campo de dirección")
   private String email;
+  
+  @NotBlank(message = "Rellenar el campo contraseña")
+  private String password;
+  
+  @NotBlank(message = "No hay coincidencia en las contraseñas")
+  @Column(insertable = false,updatable = false)
+  private String confirmPassword;
 
   @NotBlank(message = "Rellenar el campo correo")
   private String address;
 
   public User() {}
 
-  public User(int id, String name, String email, String address) {
+  public User(int id, String name, String email, String password,String address) {
     super();
     this.id = id;
     this.name = name;
     this.email = email;
+    this.password=password;
+    this.address=address;
   }
 
   public int getId() {
@@ -56,9 +66,25 @@ public class User {
     this.email = email;
   }
 
-  public String getAddress() {
-    return address;
-  }
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
 
   public void setAddress(String address) {
     this.address = address;

@@ -46,12 +46,12 @@
 
 					<!-- Password -->
 					<input type="password" id="password" class="form-control mb-4"
-						placeholder="Contraseña">
+						placeholder="Contraseña" th:field="*{password}">
 
 					<!-- Password Confirmation-->
 					<input type="password" id="passwordConfirmation"
-						class="form-control mb-4" placeholder="Confirma contraseña">
-
+						class="form-control mb-4" placeholder="Confirma contraseña" th:field="*{confirmPassword}">
+					<div th=""></div>
 					<button class="btn btn-info btn-block my-4" type="submit">Registrarse</button>
 
 					<a href="#" class="mx-2" role="button">
