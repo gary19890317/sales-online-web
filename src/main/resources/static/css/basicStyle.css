@@ -14,3 +14,17 @@
 	border-bottom: 25px;
 	border-top: 25px;
 }
+#containerForm{
+	
+	width:90%;
+	align-items: center;
+}
+#bodySection{
+	width:80%;
+	margin: 0px auto;
+	align-items: stretch;
+}
+#justifyContentFlex {
+	align-items: center;
+	justify-content: center;
+}
