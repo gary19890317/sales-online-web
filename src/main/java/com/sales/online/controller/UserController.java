@@ -1,8 +1,14 @@
 package com.sales.online.controller;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,16 +20,24 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.sales.online.model.EmailTemplate;
 import com.sales.online.model.User;
+import com.sales.online.service.EmailService;
 import com.sales.online.service.UserService;
+
+import freemarker.template.TemplateException;
 
 @Controller
 public class UserController {
 
   private final UserService userService;
+  private final EmailService emailService;
+  private final Environment env;
 
-  public UserController(UserService userService) {
+  public UserController(UserService userService, EmailService emailService, Environment env) {
     this.userService = userService;
+    this.emailService = emailService;
+    this.env = env;
   }
 
   @InitBinder
@@ -46,8 +60,15 @@ public class UserController {
     if (result.hasErrors()) {
       return "addUser";
     } else {
-      userService.save(userData);
-      redirectAttributes.addFlashAttribute("mensaje", "Usuario agregado");
+      try {
+        userService.save(userData);
+        sendMail(userData);
+        redirectAttributes.addFlashAttribute("mensaje", "Usuario agregado");
+      } catch (Exception e) {
+        e.printStackTrace();
+        model.addAttribute("mensaje", "Error al guardar el usuario: " + e.getMessage());
+        return "addUser";
+      }
       return "redirect:/users/addUser";
     }
   }
@@ -83,5 +104,19 @@ public class UserController {
   public String deleteUser(@PathVariable int id, Model model) {
     userService.deleteById(id);
     return "redirect:/users";
+  }
+
+  private void sendMail(User user) throws MessagingException, IOException, TemplateException {
+    Map<String, Object> model = new HashMap<>();
+    model.put("name", user.getName());
+
+    EmailTemplate emailTemplate =
+        new EmailTemplate(
+            user.getEmail(),
+            env.getProperty("mail.create.user.subject"),
+            env.getProperty("mail.create.user.template"),
+            model);
+
+    emailService.sendMessage(emailTemplate);
   }
 }
