@@ -1,7 +1,13 @@
 package com.sales.online.controller;
 
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,16 +37,44 @@ public class UserController {
  * @param model
  * @return
  */ 
-@PostMapping("/users/addUser")
-  public String addUser(@ModelAttribute User userData, Model model, RedirectAttributes redirectAttributes) {
-	userService.save(userData);
-    model.addAttribute("userData", userData);
-    redirectAttributes.addFlashAttribute("mensaje", "Usuario agregado");
-    
-    return "redirect:/users/addUser";
-  }
+	@PostMapping("/users/addUser")
+	public String addUser(@Valid @ModelAttribute User userData,BindingResult result, Model model, RedirectAttributes redirectAttributes) {
 
-  @GetMapping("/users/addUser")
+		
+		if (result.hasErrors()) {
+			List<FieldError> lista=result.getFieldErrors();
+			redirectAttributes=verifyField(redirectAttributes,lista);
+			return "redirect:/users/addUser";
+		}else {
+			System.out.println("Entra al else");
+			userService.save(userData);
+			model.addAttribute("userData", userData);
+			redirectAttributes.addFlashAttribute("mensaje", "Usuario agregado");
+			return "redirect:/users/addUser";
+		}
+	}
+
+  private RedirectAttributes verifyField(RedirectAttributes redirectAttributes, List<FieldError> lista) {
+	// TODO Auto-generated method stub
+	  
+	  for (FieldError fieldError : lista) {
+			System.out.println(fieldError.getField());
+			
+			switch (fieldError.getField()) {
+			case "name":
+			redirectAttributes.addFlashAttribute("nameError", "Rellenar el campo nombre");
+				break; 
+			case "address":
+				redirectAttributes.addFlashAttribute("addressError", "Rellenar el campo de dirección");
+				break;
+			case "email":
+				redirectAttributes.addFlashAttribute("emailError", "Rellenar el campo correo");
+				break;
+			}
+		}
+	return redirectAttributes;
+}
+@GetMapping("/users/addUser")
   public String showAddUserView(@ModelAttribute User userData, Model model) {
     model.addAttribute("userData", userData);
     return "addUser";
