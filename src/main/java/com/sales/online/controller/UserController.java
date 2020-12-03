@@ -67,6 +67,7 @@ public class UserController {
             sendMail(userData);
             redirectAttributes.addFlashAttribute("mensaje", "Usuario agregado");	
     	}else {
+    		model.addAttribute("mensaje", "Las contraseñas no son iguales");
     		return "addUser";
     	}
         
