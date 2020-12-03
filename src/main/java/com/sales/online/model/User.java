@@ -14,11 +14,13 @@ public class User {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
 
-  @NotBlank
+  @NotBlank(message = "Rellenar el campo nombre")
   private String name;
-  @NotBlank
+
+  @NotBlank(message = "Rellenar el campo de dirección")
   private String email;
-  @NotBlank
+
+  @NotBlank(message = "Rellenar el campo correo")
   private String address;
 
   public User() {}

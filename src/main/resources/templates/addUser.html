@@ -22,11 +22,9 @@
 		</div>
 	</section>
 	<div id="bodySection">
-
 		<form id="formUser" class="mx-auto my-5" th:action="@{/users/addUser}"
 			th:object="${userData}" method="POST">
 			<div id="containerForm">
-
 				<div class="row no-gutters" id="justifyContentFlex">
 					<div
 						class="col-lg-1 d-flex justify-content-start ml-5 mr-2 align-items-center ">
@@ -38,8 +36,8 @@
 								th:field="*{name}">
 						</div>
 					</div>
-					<br/> 
-					<span th:if="${nameError !=null}" th:text="${nameError}"></span>
+					<br /> <span th:if="${#fields.hasErrors('name')}"
+						th:errors="*{name}">Requerido*</span>
 				</div>
 				<div class="row no-gutters" id="justifyContentFlex">
 					<div
@@ -52,8 +50,8 @@
 								th:field="*{email}">
 						</div>
 					</div>
-					<br/>
-					<span th:if="${emailError !=null}" th:text="${emailError}"></span>
+					<br /> <span th:if="${#fields.hasErrors('email')}"
+						th:errors="*{email}">Requerido*</span>
 				</div>
 				<div class="row no-gutters" id="justifyContentFlex">
 					<div
@@ -63,11 +61,11 @@
 					<div class="col-lg-4">
 						<div class="form-group">
 							<input type="text" class="form-control" id="address"
-								th:field="*{address}" >
+								th:field="*{address}">
 						</div>
 					</div>
-					<br/>
-					<span th:if="${addressError !=null}" th:text="${addressError}"></span>
+					<br /> <span th:if="${#fields.hasErrors('address')}"
+						th:errors="*{address}">Requerido*</span>
 				</div>
 				<div id="containerSaveCancel" class="d-flex justify-content-center">
 					<a th:href="@{/users}">
