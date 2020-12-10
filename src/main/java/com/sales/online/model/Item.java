@@ -1,5 +1,8 @@
 package com.sales.online.model;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,21 +22,44 @@ public class Item {
   private byte[] picture;
 
   private float startingPrice;
-  private String expirationDate;
+  private float latestPrice;
+  private Timestamp created;
+  private Timestamp expirationDate;
   private String status;
+  private int ranking;
   @Transient private boolean active;
   @Transient private String pictureBase64;
 
   public Item() {}
 
   public Item(
-      String name, byte[] picture, float startingPrice, String expirationDate, String status) {
+      String name, byte[] picture, float startingPrice, Timestamp expirationDate, String status) {
     super();
     this.name = name;
     this.picture = picture;
     this.startingPrice = startingPrice;
+    this.latestPrice = startingPrice;
     this.expirationDate = expirationDate;
     this.status = status;
+    this.created = Timestamp.valueOf(LocalDateTime.now());
+  }
+
+  public Item(
+      String name,
+      byte[] picture,
+      float startingPrice,
+      Timestamp expirationDate,
+      String status,
+      int ranking) {
+    super();
+    this.name = name;
+    this.picture = picture;
+    this.startingPrice = startingPrice;
+    this.latestPrice = startingPrice;
+    this.expirationDate = expirationDate;
+    this.status = status;
+    this.ranking = ranking;
+    this.created = Timestamp.valueOf(LocalDateTime.now());
   }
 
   public long getId() {
@@ -68,11 +94,27 @@ public class Item {
     this.startingPrice = startingPrice;
   }
 
-  public String getExpirationDate() {
+  public float getLatestPrice() {
+    return latestPrice;
+  }
+
+  public void setLatestPrice(float latestPrice) {
+    this.latestPrice = latestPrice;
+  }
+
+  public Timestamp getCreated() {
+    return created;
+  }
+
+  public void setCreated(Timestamp created) {
+    this.created = created;
+  }
+
+  public Timestamp getExpirationDate() {
     return expirationDate;
   }
 
-  public void setExpirationDate(String expirationDate) {
+  public void setExpirationDate(Timestamp expirationDate) {
     this.expirationDate = expirationDate;
   }
 
@@ -82,6 +124,14 @@ public class Item {
 
   public void setStatus(String status) {
     this.status = status;
+  }
+
+  public int getRanking() {
+    return ranking;
+  }
+
+  public void setRanking(int ranking) {
+    this.ranking = ranking;
   }
 
   public boolean isActive() {
@@ -104,12 +154,14 @@ public class Item {
         + name
         + ", startingPrice="
         + startingPrice
+        + ", latestPrice="
+        + latestPrice
         + ", expirationDate="
         + expirationDate
         + ", status="
         + status
-        + ", active="
-        + active
+        + ", ranking="
+        + ranking
         + "]";
   }
 }

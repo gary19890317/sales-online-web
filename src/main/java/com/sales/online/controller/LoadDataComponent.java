@@ -4,6 +4,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
@@ -26,17 +28,33 @@ public class LoadDataComponent {
   private void loadData() {
     // TODO carga de imagen al server
     // Revisar:  https://dzone.com/articles/upload-and-retrieve-filesimages-using-spring-boot
-    saveItem("Control Nintengo64", "/load/n64.jpg", 125, "2020-12-08", "ACTIVE");
-    saveItem("Play Station 4", "/load/ps4.jpg", 347, "2020-12-08", "ACTIVE");
-    saveItem("Super Nintendo", "/load/sness.jpg", 289, "2020-12-08", "ACTIVE");
+    saveItem("Control Nintengo64", "/load/n64.jpg", 125, "2020-12-10T15:35:00", "ACTIVE", 0);
+    saveItem("Play Station 4", "/load/ps4.jpg", 347, "2020-12-10T18:21:00", "ACTIVE", 0);
+    saveItem("Super Sness", "/load/sness.jpg", 289, "2020-12-10T21:19:00", "ACTIVE", 0);
+    saveItem("Wii", "/load/wii.jpg", 321, "2020-12-10T10:00:00", "ACTIVE", 0);
+
+    saveItem("Play Statio 5", "/load/ps5.jpg", 460, "2020-12-09T23:59:00", "ACTIVE", 0);
+    saveItem("Super Nintendo", "/load/game-cube.jpg", 160, "2020-12-09T22:10:59", "ACTIVE", 0);
+    saveItem("PC Gamer", "/load/pc.jpg", 987, "2020-12-09T23:04:00", "ACTIVE", 0);
+
+    saveItem("Play Station 2", "/load/ps2.jpg", 567, "2020-12-15T14:43:00", "ACTIVE", 5);
+    saveItem("Wii U", "/load/wii-u.jpg", 289, "2020-12-15T15:39:00", "ACTIVE", 3);
   }
 
-  private void saveItem(String name, String imagePath, float price, String date, String status) {
+  private void saveItem(
+      String name, String imagePath, float price, String date, String status, int ranking) {
     try {
       byte[] image =
           Files.readAllBytes(
               new File(LoadDataComponent.class.getResource(imagePath).toURI()).toPath());
-      Item item = new Item(name, compressBytes(image), price, date, status);
+      Item item =
+          new Item(
+              name,
+              compressBytes(image),
+              price,
+              Timestamp.valueOf(LocalDateTime.parse(date)),
+              status,
+              ranking);
       itemRepository.save(item);
     } catch (Exception e) {
       e.printStackTrace();

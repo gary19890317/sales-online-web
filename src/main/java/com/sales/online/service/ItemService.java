@@ -23,7 +23,33 @@ public class ItemService {
 
   public List<Item> getLatestItems() {
     return itemRepository
-        .findAll()
+        .findLatestItems()
+        .stream()
+        .map(
+            (item) -> {
+              byte[] image = LoadDataComponent.decompressBytes(item.getPicture());
+              item.setPictureBase64(DatatypeConverter.printBase64Binary(image));
+              return item;
+            })
+        .collect(Collectors.toCollection(ArrayList::new));
+  }
+
+  public List<Item> getNextToFinishItems() {
+    return itemRepository
+        .findNextToFinishItems()
+        .stream()
+        .map(
+            (item) -> {
+              byte[] image = LoadDataComponent.decompressBytes(item.getPicture());
+              item.setPictureBase64(DatatypeConverter.printBase64Binary(image));
+              return item;
+            })
+        .collect(Collectors.toCollection(ArrayList::new));
+  }
+
+  public List<Item> getBestRatedItems() {
+    return itemRepository
+        .findBestRatedItems()
         .stream()
         .map(
             (item) -> {

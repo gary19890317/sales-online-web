@@ -18,6 +18,8 @@ public class HomeController {
   @GetMapping({"/", "index"})
   public String index(Model model) {
     model.addAttribute("latestItems", itemService.getLatestItems());
+    model.addAttribute("bestRatedItems", itemService.getBestRatedItems());
+    model.addAttribute("nextToFinishItems", itemService.getNextToFinishItems());
     return "index";
   }
 }
