@@ -63,3 +63,16 @@ body::after {
 	background-repeat: no-repeat;
 	background-size: cover;
 }
+
+.contenedor {
+	width: 30%;
+	margin: 0px auto;
+	position: absolute;
+	top: 20%;
+	margin-left: 35%;
+}
+
+#log-in{
+	width: 80%;
+}
+

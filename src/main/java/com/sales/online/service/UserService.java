@@ -1,9 +1,7 @@
 package com.sales.online.service;
 
 import java.util.List;
-
 import org.springframework.stereotype.Service;
-
 import com.sales.online.exception.UserNotFoundException;
 import com.sales.online.model.User;
 import com.sales.online.repository.UserRepository;
@@ -12,7 +10,7 @@ import com.sales.online.repository.UserRepository;
 public class UserService {
 
   private final UserRepository userRepository;
-
+  
   public UserService(UserRepository userRepository) {
     this.userRepository = userRepository;
   }
@@ -20,11 +18,13 @@ public class UserService {
   public User findById(int id) {
     return userRepository.findById(id).map(user -> user).orElseThrow(UserNotFoundException::new);
   }
-
   public List<User> findAll() {
     return userRepository.findAll();
   }
 
+  public User findUserByEmailAndPassword(String email, String password) {
+	  return userRepository.validateUser(email, password);
+  }
   public void deleteById(int id) {
     userRepository
         .findById(id)

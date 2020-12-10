@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="w3.org/1999/xhtml" xmlns:th="thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Sitio Web de subastas Online</title>
+<link rel="icon" type="image/vnd.microsoft.icon"
+	th:href="@{img/favicon.ico}">
+<link rel="stylesheet" href="#" th:href="@{/css/bootstrap.css}">
+<link rel="stylesheet" href="#" th:href="@{/css/all.min.css}">
+<link rel="stylesheet" href="#" th:href="@{/css/basicStyle.css}">
+</head>
+<body>
+
+
+
+	<div class="contenedor">
+		<form class="text-center border border-light p-5"
+			th:action="@{/users/logInUser}" th:object="${userData}" method="POST">
+
+			<p class="h4 mb-4">Inicio de sesión de Usuario</p>
+
+			<!-- Name -->
+			<div class="input-group ">
+				<div class="input-group-prepend">
+					<div class="input-group-text">
+						<i class="fa fa-user fa-fw"></i>
+					</div>
+				</div>
+				<input type="text" class="form-control is-invalid"
+					placeholder="Correo electronico" th:field="*{email}">
+				<div class="invalid-feedback order-last"
+					th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+			</div>
+			<br th:if="${!#fields.hasErrors('email')}">
+			<!-- User´s password -->
+			<div class="input-group ">
+				<div class="input-group-prepend">
+					<div class="input-group-text">
+						<i class="fa fa-key fa-fw"></i>
+					</div>
+				</div>
+				<input type="password" class="form-control is-invalid"
+					placeholder="Contraseña" th:field="*{password}">
+				<div class="invalid-feedback order-last"
+					th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+				</div>
+			</div>
+			<!-- br th:if="${notFound}" th:text="${mensaje}"-->
+			<br>
+			<div th:if="${notFound}" th:text="${notFound}"></div>
+			<button id="log-in" type="submit" class="btn btn-primary"> Iniciar Sesión</button>
+			<br>
+			<a th:href="@{/users/addUser}">Crear una cuenta</a>
+
+		</form>
+	</div>
+
+</body>
+</html>
