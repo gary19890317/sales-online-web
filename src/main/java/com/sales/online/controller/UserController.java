@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sales.online.model.EmailTemplate;
 import com.sales.online.model.User;
+import com.sales.online.model.UserLogin;
 import com.sales.online.service.EmailService;
 import com.sales.online.service.UserService;
 
@@ -51,6 +52,25 @@ public class UserController {
     return "users";
   }
 
+  @GetMapping("/users/logInUser")
+  public String viewlogInUser(@ModelAttribute(name = "userData") UserLogin userData, Model model) {
+	  return "log-in";
+  }
+  
+  @PostMapping("/users/logInUser")
+   public String logInUser(@ModelAttribute(name = "userData") UserLogin userData, Model model) {
+	  User user=userService.findUserByEmailAndPassword(userData.getEmail(), userData.getPassword());
+	  if(user!=null) {
+		  System.out.println(user.getName());
+		  return "redirect:/index";
+	  }else {
+		  model.addAttribute("notFound", "El correo o la contraseña incorrectos");
+		  return "log-in";  
+	  }
+	  
+	  
+	  
+   }
   @PostMapping("/users/addUser")
   public String addUser(
       @ModelAttribute(name = "userData") @Valid User userData,
