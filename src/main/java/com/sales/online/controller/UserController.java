@@ -54,23 +54,27 @@ public class UserController {
 
   @GetMapping("/users/logInUser")
   public String viewlogInUser(@ModelAttribute(name = "userData") UserLogin userData, Model model) {
-	  return "log-in";
+    return "log-in";
   }
-  
+
   @PostMapping("/users/logInUser")
-   public String logInUser(@ModelAttribute(name = "userData") UserLogin userData, Model model) {
-	  User user=userService.findUserByEmailAndPassword(userData.getEmail(), userData.getPassword());
-	  if(user!=null) {
-		  System.out.println(user.getName());
-		  return "redirect:/index";
-	  }else {
-		  model.addAttribute("notFound", "El correo o la contraseña incorrectos");
-		  return "log-in";  
-	  }
-	  
-	  
-	  
-   }
+  public String logInUser(
+      @ModelAttribute(name = "userData") UserLogin userData,
+      RedirectAttributes attributes,
+      Model model) {
+    User user = userService.findUserByEmailAndPassword(userData.getEmail(), userData.getPassword());
+    if (user != null) {
+      userData.setName(user.getName());
+      userData.setPassword("??????");
+      userData.setId(user.getId());
+      attributes.addFlashAttribute("userData", userData);
+      return "redirect:/index";
+    } else {
+      model.addAttribute("notFound", "El correo o la contraseña incorrectos");
+      return "log-in";
+    }
+  }
+
   @PostMapping("/users/addUser")
   public String addUser(
       @ModelAttribute(name = "userData") @Valid User userData,
