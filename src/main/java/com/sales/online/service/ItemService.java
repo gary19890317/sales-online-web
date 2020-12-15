@@ -34,6 +34,12 @@ public class ItemService {
         .collect(Collectors.toCollection(ArrayList::new));
   }
 
+  public Item save(Item item) {
+	return itemRepository.save(item);
+  }
+  public Item findItem(String name) {
+	  return itemRepository.itemNew(name);
+  }
   public List<Item> getNextToFinishItems() {
     return itemRepository
         .findNextToFinishItems()

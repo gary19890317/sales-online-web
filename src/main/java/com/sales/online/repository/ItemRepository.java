@@ -21,4 +21,9 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
       value = "select * from item where datediff('hour', now(), expiration_Date) <= 6",
       nativeQuery = true)
   List<Item> findNextToFinishItems();
+  
+  @Query(
+		  value="select i from Item i where name=?1"
+		  )
+  Item itemNew (String name);
 }

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="w3.org/1999/xhtml" xmlns:th="thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Sitio Web de subastas Online</title>
+<link rel="icon" type="image/vnd.microsoft.icon"
+	th:href="@{img/favicon.ico}">
+<link rel="stylesheet" href="#" th:href="@{/css/bootstrap.css}">
+<link rel="stylesheet" href="#" th:href="@{/css/all.min.css}">
+<link rel="stylesheet" href="#" th:href="@{/css/basicStyle.css}">
+<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+	<div class="container-fluid">
+		<div class="row justify-content-center align-self-center">
+			<div class="col col-sm-6 col-md-6 col-lg-4 col-xl-3 h-100">
+
+				<form class="text-center border border-light p-5"
+					th:action="@{/upload}" th:object="${imgData}" method="POST" enctype="multipart/form-data">
+
+					<p class="h4 mb-4">Alta de productos</p>
+
+					<!-- Name -->
+					<div class="input-group ">
+						<div class="input-group-prepend">
+							<div class="input-group-text">
+								<i class="fa fa-user fa-fw"></i>
+							</div>
+						</div>
+						<input type="text" class="form-control is-invalid"
+							placeholder="Nombre del producto" th:field="*{name}">
+						<div class="invalid-feedback order-last"
+							th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+					</div>
+					<br>
+					<div class="input-group ">
+						<input id="datepicker" th:field="*{expirationDate_aux}" class="form-control is-invalid" placeholder="fecha de expiración"/>
+						<!-- Calendario -->
+					</div>
+					<br>
+					<!-- 	starting-price -->
+					<div class="input-group ">
+						<div class="input-group-prepend">
+							<div class="input-group-text">
+								<i class="fa fa-edit fa-fw"></i>
+							</div>
+						</div>
+						<input type="text" class="form-control is-invalid"
+							placeholder="Precio inicial" th:field="*{startingPrice}">
+
+					</div>
+					<br>
+					<!-- lasted-price -->
+					<div class="input-group ">
+						<div class="input-group-prepend">
+							<div class="input-group-text">
+								<i class="fa fa-edit fa-fw"></i>
+							</div>
+						</div>
+						<input type="text" class="form-control is-invalid"
+							placeholder="Precio final" th:field="*{latestPrice}">
+
+					</div>
+					<br>
+
+					<div class="input-group ">
+						<input name="imageFile" type="file">
+						<!-- Explorador de archivos -->
+
+					</div>
+					<br>
+					<!--Ranking-->
+					<div class="input-group ">
+						<div class="input-group-prepend">
+							<div class="input-group-text">
+								<label for="select-ranking">Ranking</label>
+							</div>
+						</div>
+						<select name="select-ranking" id="select-ranking" th:field="*{ranking}">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>
+
+					</div>
+					<!--Status-->
+					<div class="input-group ">
+						<div class="input-group-prepend">
+							<div class="input-group-text">
+								<label for="select-status">Status</label>
+							</div>
+						</div>
+						<select name="select-status" id="select-status" th:field="*{status}">
+							<option value="Active">Active</option>
+							<option value="Disabled">Disabled</option>
+						</select>
+
+					</div>
+
+					<button class="btn btn-info btn-block my-4" type="submit">Registrarse</button>
+				</form>
+				<!-- Default form login -->
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" th:src="@{js/jquery-3.5.1.js}"></script>
+	<script type="text/javascript" th:src="@{js/popper.js}"></script>
+	<script type="text/javascript" th:src="@{js/bootstrap.min.js}"></script>
+	<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+	<script>
+        $('#datepicker').datepicker({
+        	format: 'yyyy-mm-dd',
+            uiLibrary: 'bootstrap4'
+        });
+    </script>
+</body>
+</html>
