@@ -1,6 +1,8 @@
 package com.sales.online.model;
 
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -25,6 +27,8 @@ public class Item {
   private float latestPrice;
   private Timestamp created;
   private Timestamp expirationDate;
+  
+  @Transient private String expirationDate_aux;
   private String status;
   private int ranking;
   @Transient private boolean active;
@@ -32,6 +36,18 @@ public class Item {
 
   public Item() {}
 
+  public Item(
+		  String name, String expirationDate_aux, float startingPrice, float latestPrice,
+		  String picture, int ranking, String status
+		  ) {
+	  this.name=name;
+	  this.expirationDate_aux=expirationDate_aux;
+	  this.startingPrice=startingPrice;
+	  this.latestPrice=latestPrice;
+	  this.picture=this.picture;
+	  this.ranking=ranking;
+	  this.status=status; 
+  }
   public Item(
       String name, byte[] picture, float startingPrice, Timestamp expirationDate, String status) {
     super();
@@ -144,6 +160,14 @@ public class Item {
 
   public void setPictureBase64(String pictureBase64) {
     this.pictureBase64 = "data:image/jpeg;base64," + pictureBase64;
+  }
+
+  public String getExpirationDate_aux() {
+	return expirationDate_aux;
+  }
+
+  public void setExpirationDate_aux(String expirationDate_aux) {
+	this.expirationDate_aux = expirationDate_aux;
   }
 
   @Override
