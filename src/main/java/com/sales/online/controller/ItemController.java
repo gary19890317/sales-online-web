@@ -33,16 +33,15 @@ public class ItemController {
 	@PostMapping("/upload")
 	public String uplaodImage(@ModelAttribute(name = "imgData") Item itemData,
 			@RequestParam("imageFile") MultipartFile file, Model model) throws IOException {
-		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		System.out.println("Original " + file.getBytes().length);
 		try {
-			java.util.Date date = formatter.parse(itemData.getExpirationDate_aux());
-			Timestamp timestamp = new Timestamp(date.getTime());
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		    java.util.Date parsedDate = dateFormat.parse(itemData.getExpirationDate_aux());
+		    Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
 			itemData.setExpirationDate(timestamp);
 			Item item = new Item(itemData.getName(), compressBytes(file.getBytes()), itemData.getStartingPrice(),
-					itemData.getExpirationDate(), itemData.getStatus(), itemData.getRanking());
+					itemData.getExpirationDate(), itemData.getStatus(), 0);
 			itemService.save(item);
-		} catch (ParseException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
