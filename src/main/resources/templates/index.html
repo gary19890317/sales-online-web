@@ -353,14 +353,20 @@
 												<div class="product">
 													<div class="product__inner">
 														<div class="pro__thumb">
-															<a href="#"> <img th:src="${item.pictureBase64}"
-																alt="product images">
+															<a href="#"> <img th:id="${item.name}"
+																th:src="${item.pictureBase64}" alt="product images">
 															</a>
 														</div>
+														<!-- Se agregó ell evento de presionado del boton + al superponerse
+														 sobre un articulo-->
 														<div class="product__hover__info">
 															<ul class="product__action">
-																<li><a data-toggle="modal"
-																	data-target="#productModal" title="Quick View"
+
+																<!-- Se le coloca como id la misma ruta de la imagen para pasarselo al panel para pujar -->
+
+																<li onclick="evento(this)" th:id="${item.pictureBase64}"><a
+																	data-toggle="modal" data-target="#productModal"
+																	title="Quick View"
 																	class="quick-view modal-view detail-link" href="#"><span
 																		class="ti-plus"></span></a></li>
 																<li><a title="Add TO Cart" href="cart.html"><span
@@ -401,8 +407,9 @@
 														</div>
 														<div class="product__hover__info">
 															<ul class="product__action">
-																<li><a data-toggle="modal"
-																	data-target="#productModal" title="Quick View"
+																<li onclick="evento(this)" th:id="${item.pictureBase64}"><a
+																	data-toggle="modal" data-target="#productModal"
+																	title="Quick View"
 																	class="quick-view modal-view detail-link" href="#"><span
 																		class="ti-plus"></span></a></li>
 																<li><a title="Add TO Cart" href="cart.html"><span
@@ -443,8 +450,9 @@
 														</div>
 														<div class="product__hover__info">
 															<ul class="product__action">
-																<li><a data-toggle="modal"
-																	data-target="#productModal" title="Quick View"
+																<li onclick="evento(this)" th:id="${item.pictureBase64}"><a
+																	data-toggle="modal" data-target="#productModal"
+																	title="Quick View"
 																	class="quick-view modal-view detail-link" href="#"><span
 																		class="ti-plus"></span></a></li>
 																<li><a title="Add TO Cart" href="cart.html"><span
@@ -612,7 +620,8 @@
 							<!-- Start product images -->
 							<div class="product-images">
 								<div class="main-image images">
-									<img alt="big images" src="images/product/big-img/1.jpg">
+									<img id="imagenPuja" alt="big images"
+										src="images/product/big-img/1.jpg">
 								</div>
 							</div>
 							<!-- end product images -->
@@ -709,6 +718,15 @@
 	<!-- Main js file that contents all jQuery plugins activation. -->
 	<script src="js/main.js"></script>
 
+	<script>
+		function evento(li){
+				/*Este evento, en especifico "li" (simbolo "+" cuando nos 
+				superponemos en el item), es el elemento que cada item
+				tiene en el listado de ultimos agregados, proximas a finalizar y mejor calificado*/
+				/*para todas ellas se ocula el div de nombre productModal*/
+				document.getElementById("imagenPuja").setAttribute("src",li.id); //imgPuja es el id del elemento <img> en el div productModal
+			}
+	</script>
 </body>
 
 </html>
