@@ -1,16 +1,12 @@
 package com.sales.online.controller;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import javax.mail.MessagingException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
@@ -31,7 +27,6 @@ import com.sales.online.model.User;
 import com.sales.online.model.UserLogin;
 import com.sales.online.service.EmailService;
 import com.sales.online.service.UserService;
-import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 import freemarker.template.TemplateException;
 
@@ -61,20 +56,21 @@ public class UserController {
 
   @GetMapping("/users/logInUser")
   public String viewlogInUser(@ModelAttribute(name = "userData") UserLogin userData, Model model) {
-	  return "log-in";
+    return "log-in";
   }
 
   @PostMapping("/users/logInUser")
   public String logInUser(
       @ModelAttribute(name = "userData") UserLogin userData,
-      RedirectAttributes attributes,
-      Model model,HttpServletRequest response) {
+      Model model,
+      HttpServletRequest request) {
+    HttpSession httpSession = request.getSession(true);
     User user = userService.findUserByEmailAndPassword(userData.getEmail(), userData.getPassword());
     if (user != null) {
-      userData.setName(user.getName());
-      userData.setPassword(userData.getPassword());
       userData.setId(user.getId());
-      attributes.addFlashAttribute("userData", userData);
+      userData.setName(user.getName());
+      userData.setPassword("??????");
+      httpSession.setAttribute("userLogged", userData);
       return "redirect:/index";
     } else {
       model.addAttribute("notFound", "El correo o la contraseña incorrectos");

@@ -147,7 +147,7 @@
 								<li><a th:href="@{/users/logInUser}"><span
 										class="ti-user"></span></a></li>
 								<li class="cart__menu"><span class="ti-shopping-cart"></span></li>
-								<li><span th:text="${userData.name}"> </span></li>
+								<li><span th:text="${session.userLogged.name}" th:unless="${session.userLogged == null}"> </span></li>
 							</ul>
 						</div>
 					</div>
