@@ -150,7 +150,7 @@
                                 <li class="search search__open hidden-xs"><span class="ti-search"></span></li>
                                 <li><a th:href="@{/users/logInUser}"><span class="ti-user"></span></a></li>
                                 <li class="cart__menu"><span class="ti-shopping-cart"></span></li>
-                                <li><span th:text="${userData.name}"></span></li>
+                                <li><span sec:authentication="name" th:text="${userData.name}"></span></li>
                             </ul>
                         </div>
                     </div>

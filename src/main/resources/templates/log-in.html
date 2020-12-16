@@ -47,6 +47,11 @@
 			</div>
 			<!-- br th:if="${notFound}" th:text="${mensaje}"-->
 			<br>
+			<div class="form-check" id="rememberme-group">
+				<input type="checkbox" class="form-check-input" name="remember-me" id="remember-me" />
+				<label class="form-check-label" for="">Recordar mi sesión</label>
+			</div>
+			<br>
 			<div th:if="${notFound}" th:text="${notFound}"></div>
 			<button id="log-in" type="submit" class="btn btn-primary"> Iniciar Sesión</button>
 			<br>
