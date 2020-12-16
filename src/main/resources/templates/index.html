@@ -52,21 +52,25 @@
                         <div class="col-md-8 col-lg-8 col-sm-6 col-xs-6">
                             <nav class="mainmenu__nav hidden-xs hidden-sm">
                                 <ul class="main__menu">
-                                    <li class="drop"><a href="index.html">Inicio</a></li>   
-                                    <li class="drop"><a href="shop.html">Compras</a>
+                                    <li class="drop"><a th:href="@{/index}">Inicio</a></li>   
+                                    <li class="drop">
+                                    	<a href="shop.html">Compras</a>
                                         <ul class="dropdown mega_dropdown">
-                                            <!-- Start Single Mega MEnu -->
-                                            <li><a class="mega__title" href="shop.html">shop layout</a>
+                                        	<!-- Start Single Mega MEnu -->
+                                            <li>
+                                            	<a class="mega__title" href="shop.html">shop layout</a>
                                                 <ul class="mega__item">
                                                     <li><a href="shop.html">default shop</a></li>
                                                 </ul>
                                             </li>
                                             <!-- End Single Mega MEnu -->
                                             <!-- Start Single Mega MEnu -->
-                                            <li><a class="mega__title" href="shop.html">product details layout</a>
+                                            <li>
+                                            	<a class="mega__title" href="shop.html">product details layout</a>
                                                 <ul class="mega__item">
-                                                    <li><a href="product-details.html">tab style 1</a></li></li>
-                                                </ul>
+                                                    <li>
+                                                    	<a href="product-details.html">tab style 1</a></li></li>
+                                        </ul>
                                             </li>
                                             <!-- End Single Mega MEnu -->
                                             <!-- Start Single Mega MEnu -->
@@ -82,8 +86,8 @@
                                                 </ul>
                                             </li>
                                             <!-- End Single Mega MEnu -->
-                                        </ul>
-                                    </li>
+                                </ul>
+                                    
                                     <li class="drop"><a href="#">Páginas</a>
                                         <ul class="dropdown">
                                             <li><a href="about.html">about</a></li>
@@ -146,6 +150,7 @@
                                 <li class="search search__open hidden-xs"><span class="ti-search"></span></li>
                                 <li><a th:href="@{/users/logInUser}"><span class="ti-user"></span></a></li>
                                 <li class="cart__menu"><span class="ti-shopping-cart"></span></li>
+                                <li><span th:text="${userData.name}"></span></li>
                             </ul>
                         </div>
                     </div>
@@ -479,7 +484,7 @@
                                                 <i class="zmdi zmdi-email"></i>
                                             </div>
                                             <div class="address-text">
-                                                <a href="#"> contactanos@ejemplo.com</a>
+                                                <a href="#"> contacto@ejemplo.com</a>
                                             </div>
                                         </li>
                                         <li>
