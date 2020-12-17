@@ -353,8 +353,7 @@
 												<div class="product">
 													<div class="product__inner">
 														<div class="pro__thumb">
-															<a href="#"> <img th:id="${item.name}"
-																th:src="${item.pictureBase64}" alt="product images">
+															<a href="#"> <img th:src="${item.pictureBase64}" alt="product images">
 															</a>
 														</div>
 														<!-- Se agregó ell evento de presionado del boton + al superponerse
@@ -364,7 +363,7 @@
 
 																<!-- Se le coloca como id la misma ruta de la imagen para pasarselo al panel para pujar -->
 
-																<li onclick="evento(this)" th:id="${item.pictureBase64}"><a
+																<li onclick="evento(this)" th:id="${item.pictureBase64}" th:title="${item.name}"><a
 																	data-toggle="modal" data-target="#productModal"
 																	title="Quick View"
 																	class="quick-view modal-view detail-link" href="#"><span
@@ -376,7 +375,7 @@
 															</ul>
 														</div>
 													</div>
-													<div class="product__details">
+													<div th:id="${item.name}" class="product__details">
 														<h2>
 															<a href="product-details.html" th:text="${item.name}"></a>
 														</h2>
@@ -626,7 +625,7 @@
 							</div>
 							<!-- end product images -->
 							<div class="product-info">
-								<h1>Simple Fabric Bags</h1>
+								<h1 id="itemName">Simple Fabric Bags</h1>
 								<div class="rating__and__review">
 									<ul class="rating">
 										<li><span class="ti-star"></span></li>
@@ -641,7 +640,7 @@
 								</div>
 								<div class="price-box-3">
 									<div class="s-price-box">
-										<span class="new-price">$17.20</span> <span class="old-price">$45.00</span>
+										<span id="newPriceItem" class="new-price">$17.20</span> <span id="oldPriceItem" class="old-price">$45.00</span>
 									</div>
 								</div>
 								<div class="quick-desc">Designed for simplicity and made
@@ -687,7 +686,7 @@
 									</div>
 								</div>
 								<div class="addtocart-btn">
-									<a href="#">Add to cart</a>
+									<a href="#">Pujar subasta</a>
 								</div>
 							</div>
 							<!-- .product-info -->
@@ -718,13 +717,28 @@
 	<!-- Main js file that contents all jQuery plugins activation. -->
 	<script src="js/main.js"></script>
 
+<script>
+	$(document).ready(function(){
+		/*console.log($("[id='Play Station 2']")[0]);
+		console.log($("[id='Play Station 2']")[0].lastElementChild); //product price
+		console.log($("[id='Play Station 2']")[0].lastElementChild.firstElementChild.innerHTML); //old price
+		console.log($("[id='Play Station 2']")[0].lastElementChild.lastElementChild.innerHTML); //new price*/
+		//console.log($("#Play\\ Station\\ 2"));
+		});
+</script>
 	<script>
+
 		function evento(li){
 				/*Este evento, en especifico "li" (simbolo "+" cuando nos 
 				superponemos en el item), es el elemento que cada item
 				tiene en el listado de ultimos agregados, proximas a finalizar y mejor calificado*/
 				/*para todas ellas se ocula el div de nombre productModal*/
 				document.getElementById("imagenPuja").setAttribute("src",li.id); //imgPuja es el id del elemento <img> en el div productModal
+				document.getElementById("itemName").innerHTML=li.title;
+				var product_title=$("[id='"+li.title+"']")[0].lastElementChild.lastElementChild;
+				document.getElementById("oldPriceItem").innerHTML=product_title.innerHTML;
+				document.getElementById("newPriceItem").innerHTML=$("[id='"+li.title+"']")[0].lastElementChild.firstElementChild.innerHTML;
+			
 			}
 	</script>
 </body>
