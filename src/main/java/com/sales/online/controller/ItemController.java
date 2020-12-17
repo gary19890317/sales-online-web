@@ -38,7 +38,7 @@ public class ItemController {
 		    java.util.Date parsedDate = dateFormat.parse(itemData.getExpirationDate_aux());
 		    Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
 			itemData.setExpirationDate(timestamp);
-			Item item = new Item(itemData.getName(), compressBytes(file.getBytes()), itemData.getStartingPrice(),
+			Item item = new Item(itemData.getName(), compressBytes(file.getBytes()),"Temporal description" ,itemData.getStartingPrice(),
 					itemData.getExpirationDate(), itemData.getStatus(), 0);
 			itemService.save(item);
 		} catch (Exception e) {
