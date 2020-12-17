@@ -37,6 +37,20 @@
 							th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
 					</div>
 					<br>
+					
+					<!-- Description -->
+					<div class="input-group ">
+						<div class="input-group-prepend">
+							<div class="input-group-text">
+								<i class="fa fa-user fa-fw"></i>
+							</div>
+						</div>
+						<input type="text" class="form-control is-invalid"
+							placeholder="Descripción del producto" th:field="*{description}">
+						<div class="invalid-feedback order-last"
+							th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+					</div>
+					<br>
 					<div class="input-group ">
 						<input id="input" class="form-control is-invalid"
 							placeholder="fecha y hora de expiración"
@@ -70,19 +84,6 @@
 						<!-- Explorador de archivos -->
 					</div>
 					<br>
-					<!-- div class="input-group">
-					https://mdbootstrap.com/docs/jquery/forms/file-input/
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-						</div>
-						<div class="custom-file">
-							<input type="file" class="custom-file-input"
-								id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-							<label class="custom-file-label" for="inputGroupFile01">Choose
-								file</label>
-						</div>
-					</div>
-					<br-->
 					<!--Status-->
 					<div class="input-group ">
 						<div class="input-group-prepend">

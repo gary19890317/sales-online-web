@@ -14,163 +14,172 @@ import javax.persistence.Transient;
 
 @Entity
 public class Item {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 
-  private String name;
+	private String name;
 
-  @Column(length = 1000000)
-  private byte[] picture;
+	@Column(length = 1000000)
+	private byte[] picture;
 
-  private float startingPrice;
-  private float latestPrice;
-  private Timestamp created;
-  private Timestamp expirationDate;
-  
-  @Transient private String expirationDate_aux;
-  private String status;
-  private int ranking;
-  @Transient private boolean active;
-  @Transient private String pictureBase64;
+	private float startingPrice;
+	private float latestPrice;
+	private String description;
+	private Timestamp created;
+	private Timestamp expirationDate;
 
-  public Item() {}
+	@Transient
+	private String expirationDate_aux;
+	private String status;
+	private int ranking;
+	@Transient
+	private boolean active;
+	@Transient
+	private String pictureBase64;
 
-  public Item(
-		  String name, String expirationDate_aux, float startingPrice, float latestPrice,
-		  String picture, int ranking, String status
-		  ) {
-	  this.name=name;
-	  this.expirationDate_aux=expirationDate_aux;
-	  this.startingPrice=startingPrice;
-	  this.latestPrice=latestPrice;
-	  this.picture=this.picture;
-	  this.ranking=ranking;
-	  this.status=status; 
-  }
-  public Item(
-      String name, byte[] picture, float startingPrice, Timestamp expirationDate, String status) {
-    super();
-    this.name = name;
-    this.picture = picture;
-    this.startingPrice = startingPrice;
-    this.latestPrice = startingPrice;
-    this.expirationDate = expirationDate;
-    this.status = status;
-    this.created = Timestamp.valueOf(LocalDateTime.now());
-  }
+	public Item() {
+	}
 
-  public Item(
-      String name,
-      byte[] picture,
-      float startingPrice,
-      Timestamp expirationDate,
-      String status,
-      int ranking) {
-    super();
-    this.name = name;
-    this.picture = picture;
-    this.startingPrice = startingPrice;
-    this.latestPrice = startingPrice;
-    this.expirationDate = expirationDate;
-    this.status = status;
-    this.ranking = ranking;
-    this.created = Timestamp.valueOf(LocalDateTime.now());
-  }
+	public Item(String name, String expirationDate_aux, float startingPrice, float latestPrice, String description,
+			String picture, int ranking, String status) {
+		this.name = name;
+		this.expirationDate_aux = expirationDate_aux;
+		this.startingPrice = startingPrice;
+		this.latestPrice = latestPrice;
+		this.picture = this.picture;
+		this.ranking = ranking;
+		this.status = status;
+	}
 
-  public long getId() {
-    return id;
-  }
+	public Item(String name, byte[] picture, float startingPrice, String description, Timestamp expirationDate,
+			String status) {
+		super();
+		this.name = name;
+		this.picture = picture;
+		this.startingPrice = startingPrice;
+		this.description = description;
+		this.latestPrice = startingPrice;
+		this.expirationDate = expirationDate;
+		this.status = status;
+		this.created = Timestamp.valueOf(LocalDateTime.now());
+	}
 
-  public void setId(long id) {
-    this.id = id;
-  }
+	public Item(String name, byte[] picture, String description, float startingPrice, Timestamp expirationDate,
+			String status, int ranking) {
+		super();
+		this.name = name;
+		this.picture = picture;
+		this.description = description;
+		this.startingPrice = startingPrice;
+		this.latestPrice = startingPrice;
+		this.expirationDate = expirationDate;
+		this.status = status;
+		this.ranking = ranking;
+		this.created = Timestamp.valueOf(LocalDateTime.now());
+	}
 
-  public String getName() {
-    return name;
-  }
+	public long getId() {
+		return id;
+	}
 
-  public void setName(String name) {
-    this.name = name;
-  }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-  public byte[] getPicture() {
-    return picture;
-  }
+	public String getName() {
+		return name;
+	}
 
-  public void setPicture(byte[] picture) {
-    this.picture = picture;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  public float getStartingPrice() {
-    return startingPrice;
-  }
+	public byte[] getPicture() {
+		return picture;
+	}
 
-  public void setStartingPrice(float startingPrice) {
-    this.startingPrice = startingPrice;
-  }
+	public void setPicture(byte[] picture) {
+		this.picture = picture;
+	}
 
-  public float getLatestPrice() {
-    return latestPrice;
-  }
+	public float getStartingPrice() {
+		return startingPrice;
+	}
 
-  public void setLatestPrice(float latestPrice) {
-    this.latestPrice = latestPrice;
-  }
+	public void setStartingPrice(float startingPrice) {
+		this.startingPrice = startingPrice;
+	}
 
-  public Timestamp getCreated() {
-    return created;
-  }
+	public float getLatestPrice() {
+		return latestPrice;
+	}
 
-  public void setCreated(Timestamp created) {
-    this.created = created;
-  }
+	public void setLatestPrice(float latestPrice) {
+		this.latestPrice = latestPrice;
+	}
 
-  public Timestamp getExpirationDate() {
-    return expirationDate;
-  }
+	public Timestamp getCreated() {
+		return created;
+	}
 
-  public void setExpirationDate(Timestamp expirationDate) {
-    this.expirationDate = expirationDate;
-  }
+	public void setCreated(Timestamp created) {
+		this.created = created;
+	}
 
-  public String getStatus() {
-    return status;
-  }
+	public Timestamp getExpirationDate() {
+		return expirationDate;
+	}
 
-  public void setStatus(String status) {
-    this.status = status;
-  }
+	public void setExpirationDate(Timestamp expirationDate) {
+		this.expirationDate = expirationDate;
+	}
 
-  public int getRanking() {
-    return ranking;
-  }
+	public String getStatus() {
+		return status;
+	}
 
-  public void setRanking(int ranking) {
-    this.ranking = ranking;
-  }
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
-  public boolean isActive() {
-    return !"SOLD".equals(status);
-  }
+	public int getRanking() {
+		return ranking;
+	}
 
-  public String getPictureBase64() {
-    return pictureBase64;
-  }
+	public void setRanking(int ranking) {
+		this.ranking = ranking;
+	}
 
-  public void setPictureBase64(String pictureBase64) {
-    this.pictureBase64 = "data:image/jpeg;base64," + pictureBase64;
-  }
+	public boolean isActive() {
+		return !"SOLD".equals(status);
+	}
 
-  public String getExpirationDate_aux() {
-	return expirationDate_aux;
-  }
+	public String getPictureBase64() {
+		return pictureBase64;
+	}
 
-  public void setExpirationDate_aux(String expirationDate_aux) {
-	this.expirationDate_aux = expirationDate_aux;
-  }
+	public void setPictureBase64(String pictureBase64) {
+		this.pictureBase64 = "data:image/jpeg;base64," + pictureBase64;
+	}
 
-  @Override
+	public String getExpirationDate_aux() {
+		return expirationDate_aux;
+	}
+
+	public void setExpirationDate_aux(String expirationDate_aux) {
+		this.expirationDate_aux = expirationDate_aux;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+@Override
   public String toString() {
     return "Item [id="
         + id
