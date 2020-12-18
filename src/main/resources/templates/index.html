@@ -147,7 +147,7 @@
 								<li><a th:href="@{/users/logInUser}"><span
 										class="ti-user"></span></a></li>
 								<li class="cart__menu"><span class="ti-shopping-cart"></span></li>
-								<li><span th:text="${session.userLogged.name}" th:unless="${session.userLogged == null}"> </span></li>
+								<li><span th:text="${session.userLogged.id} + '-' + ${session.userLogged.name}" th:unless="${session.userLogged == null}"> </span></li>
 							</ul>
 						</div>
 					</div>
@@ -636,7 +636,7 @@
 									</ul>
 								</div>
 								<div class="addtocart-btn">
-									<a href="#">Pujar</a>
+									<a href="#" th:unless="${session.userLogged == null}" th:onclick="'pujar(' + ${session.userLogged.id} + ')'">Pujar</a>
 								</div>
 							</div>
 							<!-- .product-info -->
@@ -674,11 +674,30 @@
 		        dataType: 'json',
 		        success: function(res) {
 		        	document.getElementById("itemName").innerHTML=res.name;
-		        	document.getElementById("oldPriceItem").innerHTML=res.startingPrice;
-					document.getElementById("newPriceItem").innerHTML=res.latestPrice;
+		        	document.getElementById("oldPriceItem").innerHTML='$' + res.startingPrice;
+					document.getElementById("newPriceItem").innerHTML='$' + res.latestPrice;
 					document.getElementById("itemDescription").setAttribute("class","quick-desc");
 					document.getElementById("itemDescription").innerHTML=res.description;
 					document.getElementById("imagenPuja").setAttribute("src",res.pictureBase64);
+					document.getElementById("puja").value='10';
+		        },
+		        error: function(xhr) {
+					alert(xhr.status + " - " + xhr.responseText);
+		        }
+		    });
+			}
+			
+		function pujar(userId){
+			var puja = document.getElementById("puja").value;
+			$.ajax({
+		        url: "/items/pujar",
+		        data: JSON.stringify({"itemId": 1, "puja": puja, "userId": userId}),
+		        type: 'POST',
+		        dataType: 'json',
+		        contentType: 'application/json',
+		        success: function(res) {
+		        	document.getElementById("newPriceItem").innerHTML='$' + res.latestPrice;
+		        	alert('Puja realizada');
 		        },
 		        error: function(xhr) {
 					alert(xhr.status + " - " + xhr.responseText);

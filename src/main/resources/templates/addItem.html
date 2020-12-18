@@ -3,8 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Sitio Web de subastas Online</title>
-<link rel="icon" type="image/vnd.microsoft.icon"
-	th:href="@{img/favicon.ico}">
+
+<!-- Place favicon.ico in the root directory -->
+<link rel="shortcut icon" type="image/x-icon"
+	th:href="@{/images/favicon.ico}">
+	
 <link rel="stylesheet" href="#" th:href="@{/css/bootstrap.css}">
 <link rel="stylesheet" href="#" th:href="@{/css/all.min.css}">
 <link rel="stylesheet" href="#" th:href="@{/css/basicStyle.css}">
@@ -13,7 +16,7 @@
 </head>
 <body>
 
-
+	<br>
 	<div class="container-fluid">
 		<div class="row justify-content-center align-self-center">
 			<div class="col col-sm-6 col-md-6 col-lg-4 col-xl-3 h-100">
@@ -68,16 +71,6 @@
 							placeholder="Precio inicial" th:field="*{startingPrice}">
 					</div>
 					<br>
-					<!-- lasted-price -->
-					<div class="input-group ">
-						<div class="input-group-prepend">
-							<div class="input-group-text">
-								<i class="fa fa-edit fa-fw"></i>
-							</div>
-						</div>
-						<input type="text" class="form-control is-invalid"
-							placeholder="Precio final" th:field="*{latestPrice}">
-					</div>
 					<br>
 					<div class="input-group ">
 						<input name="imageFile" type="file">
@@ -97,7 +90,7 @@
 							<option value="Paused">Pausado</option>
 						</select>
 					</div>
-					<button class="btn btn-info btn-block my-4" type="submit">Registrarse</button>
+					<button class="btn btn-info btn-block my-4" type="submit">Guardar</button>
 				</form>
 				<!-- Default form login -->
 			</div>
