@@ -25,6 +25,7 @@ public class SubastaMonitor {
   @Scheduled(fixedRate = 5000)
   public void reportCurrentTime() {
     itemService.updateExpiredItemToInactive();
+    itemService.sendWinnerNotification();
     logger.info("The time is now {}", dateFormat.format(new Date()));
   }
 }

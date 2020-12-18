@@ -14,14 +14,17 @@ import org.springframework.stereotype.Component;
 
 import com.sales.online.model.Item;
 import com.sales.online.repository.ItemRepository;
+import com.sales.online.repository.UserRepository;
 
 @Component
 public class LoadDataComponent {
 
   private ItemRepository itemRepository;
+  private UserRepository userRepository;
 
-  public LoadDataComponent(ItemRepository itemRepository) {
+  public LoadDataComponent(ItemRepository itemRepository, UserRepository userRepository) {
     this.itemRepository = itemRepository;
+    this.userRepository = userRepository;
     loadData();
   }
 
@@ -31,17 +34,17 @@ public class LoadDataComponent {
         "/load/n64.jpg",
         "Control video juego nintento 64",
         125,
-        "2020-12-18T15:35:00",
+        "2020-12-18T15:07:00",
         "ACTIVO",
-        0);
+        3);
     addItem(
         "Play Station 4",
         "/load/ps4.jpg",
         "Consola de video juego play station 4",
         347,
-        "2020-12-21T18:21:00",
+        "2020-12-18T18:21:00",
         "ACTIVO",
-        0);
+        5);
     addItem(
         "Super Sness",
         "/load/sness.jpg",
@@ -49,7 +52,7 @@ public class LoadDataComponent {
         289,
         "2020-12-27T21:19:00",
         "ACTIVO",
-        0);
+        3);
     addItem(
         "Wii",
         "/load/wii.jpg",
@@ -97,7 +100,7 @@ public class LoadDataComponent {
         "/load/wii-u.jpg",
         "Consola de video juego Wii U",
         289,
-        "2020-12-15T15:39:00",
+        "2020-12-18T18:39:00",
         "ACTIVO",
         3);
   }
@@ -123,6 +126,7 @@ public class LoadDataComponent {
               Timestamp.valueOf(LocalDateTime.parse(date)),
               status,
               ranking);
+      item.setUser(userRepository.findById(1).get());
       itemRepository.save(item);
     } catch (Exception e) {
       e.printStackTrace();
