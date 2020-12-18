@@ -5,9 +5,12 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
 @Entity
@@ -32,6 +35,10 @@ public class Item {
   private int ranking;
   @Transient private boolean active;
   @Transient private String pictureBase64;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "id_user")
+  private User user;
 
   public Item() {}
 
@@ -163,7 +170,7 @@ public class Item {
   }
 
   public boolean isActive() {
-    return !"SOLD".equals(status);
+    return !"VENDIDO".equals(status);
   }
 
   public String getPictureBase64() {
@@ -188,6 +195,14 @@ public class Item {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
   }
 
   @Override

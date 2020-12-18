@@ -6,6 +6,8 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.zip.Deflater;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,20 +17,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sales.online.model.Item;
+import com.sales.online.model.User;
+import com.sales.online.model.UserLogin;
 import com.sales.online.service.ItemService;
+import com.sales.online.service.UserService;
 
 @Controller
 public class ItemController {
   private ItemService itemService;
+  private UserService userService;
 
-  public ItemController(ItemService itemService) {
+  public ItemController(ItemService itemService, UserService userService) {
     this.itemService = itemService;
+    this.userService = userService;
   }
 
   @PostMapping("/upload")
   public String uplaodImage(
       @ModelAttribute(name = "imgData") Item itemData,
       @RequestParam("imageFile") MultipartFile file,
+      HttpSession httpSession,
       Model model)
       throws IOException {
     try {
@@ -45,14 +53,22 @@ public class ItemController {
               itemData.getExpirationDate(),
               itemData.getStatus(),
               0);
-      itemService.save(item);
+      UserLogin userLogin = (UserLogin) httpSession.getAttribute("userLogged");
+      if (userLogin != null) {
+        User user = userService.findById(userLogin.getId());
+        item.setUser(user);
+        itemService.save(item);
+      } else {
+        model.addAttribute("mensaje", "No se ha iniciado sessión");
+      }
     } catch (Exception e) {
       e.printStackTrace();
     }
+    model.addAttribute("mensaje", "Se guardó de manera exitosa");
     return "addItem";
   }
 
-  @GetMapping("/upload")
+  @GetMapping("/addItem")
   public String showViewUploadImage(@ModelAttribute(name = "imgData") Item itemData, Model model) {
     return "addItem";
   }
@@ -72,7 +88,6 @@ public class ItemController {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    System.out.println("Compressed Image Byte Size - " + outputStream.toByteArray().length);
     return outputStream.toByteArray();
   }
 }

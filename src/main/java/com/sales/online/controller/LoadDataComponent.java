@@ -26,23 +26,90 @@ public class LoadDataComponent {
   }
 
   private void loadData() {
-    // TODO carga de imagen al server
-    // Revisar:  https://dzone.com/articles/upload-and-retrieve-filesimages-using-spring-boot
-    saveItem("Control Nintengo64", "/load/n64.jpg", "Control video juego nintento 64",125, "2020-12-10T15:35:00", "ACTIVE", 0);
-    saveItem("Play Station 4", "/load/ps4.jpg", "Consola de video juego play station 4",347, "2020-12-10T18:21:00", "ACTIVE", 0);
-    saveItem("Super Sness", "/load/sness.jpg","Conola de video juego clásico Sness" ,289, "2020-12-10T21:19:00", "ACTIVE", 0);
-    saveItem("Wii", "/load/wii.jpg","Consola de video juego Wii" ,321, "2020-12-10T10:00:00", "ACTIVE", 0);
+    addItem(
+        "Control Nintengo64",
+        "/load/n64.jpg",
+        "Control video juego nintento 64",
+        125,
+        "2020-12-18T15:35:00",
+        "ACTIVO",
+        0);
+    addItem(
+        "Play Station 4",
+        "/load/ps4.jpg",
+        "Consola de video juego play station 4",
+        347,
+        "2020-12-21T18:21:00",
+        "ACTIVO",
+        0);
+    addItem(
+        "Super Sness",
+        "/load/sness.jpg",
+        "Conola de video juego clásico Sness",
+        289,
+        "2020-12-27T21:19:00",
+        "ACTIVO",
+        0);
+    addItem(
+        "Wii",
+        "/load/wii.jpg",
+        "Consola de video juego Wii",
+        321,
+        "2020-12-10T10:00:00",
+        "ACTIVO",
+        0);
 
-    saveItem("Play Statio 5", "/load/ps5.jpg", "Consola de video juego play station 4",460, "2020-12-09T23:59:00", "ACTIVE", 0);
-    saveItem("Super Nintendo", "/load/game-cube.jpg","Consola de video juego clásico Super nintendo" ,160, "2020-12-09T22:10:59", "ACTIVE", 0);
-    saveItem("PC Gamer", "/load/pc.jpg","PC Gamer Intel core i7 10th" ,987,"2020-12-09T23:04:00", "ACTIVE", 0);
+    addItem(
+        "Play Statio 5",
+        "/load/ps5.jpg",
+        "Consola de video juego play station 4",
+        460,
+        "2020-12-09T23:59:00",
+        "ACTIVO",
+        0);
+    addItem(
+        "Super Nintendo",
+        "/load/game-cube.jpg",
+        "Consola de video juego clásico Super nintendo",
+        160,
+        "2020-12-09T22:10:59",
+        "ACTIVO",
+        0);
+    addItem(
+        "PC Gamer",
+        "/load/pc.jpg",
+        "PC Gamer Intel core i7 10th",
+        987,
+        "2020-12-09T23:04:00",
+        "ACTIVO",
+        0);
 
-    saveItem("Play Station 2", "/load/ps2.jpg","Consola de video juego play station 2" ,567, "2020-12-15T14:43:00", "ACTIVE", 5);
-    saveItem("Wii U", "/load/wii-u.jpg", "Consola de video juego Wii U",289, "2020-12-15T15:39:00", "ACTIVE", 3);
+    addItem(
+        "Play Station 2",
+        "/load/ps2.jpg",
+        "Consola de video juego play station 2",
+        567,
+        "2020-12-15T14:43:00",
+        "ACTIVO",
+        5);
+    addItem(
+        "Wii U",
+        "/load/wii-u.jpg",
+        "Consola de video juego Wii U",
+        289,
+        "2020-12-15T15:39:00",
+        "ACTIVO",
+        3);
   }
 
-  private void saveItem(
-      String name, String imagePath,String description ,float price,String date, String status, int ranking) {
+  private void addItem(
+      String name,
+      String imagePath,
+      String description,
+      float price,
+      String date,
+      String status,
+      int ranking) {
     try {
       byte[] image =
           Files.readAllBytes(

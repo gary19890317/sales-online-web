@@ -16,7 +16,18 @@
 </head>
 <body>
 
-	<br>
+	<div class="container-fluid">
+		<br>
+		<a th:href="@{/index}">
+			<button id="cancel" type="button" class="mx-2 btn btn-danger">
+				<i class="fas fa-times"></i> Atrás
+			</button>
+		</a>
+		<div id="alert" class="alert alert-success" th:if="${mensaje!=null}"
+			th:text="${mensaje}" role="alert"></div>
+		<br>
+	</div>
+	
 	<div class="container-fluid">
 		<div class="row justify-content-center align-self-center">
 			<div class="col col-sm-6 col-md-6 col-lg-4 col-xl-3 h-100">
@@ -64,7 +75,7 @@
 					<div class="input-group ">
 						<div class="input-group-prepend">
 							<div class="input-group-text">
-								<i class="fa fa-edit fa-fw"></i>
+								<i class="fa fa-dollar-sign fa-fw"></i>
 							</div>
 						</div>
 						<input type="text" class="form-control is-invalid"
@@ -81,13 +92,13 @@
 					<div class="input-group ">
 						<div class="input-group-prepend">
 							<div class="input-group-text">
-								<label for="select-status">Status</label>
+								<i class="fa fa-eye fa-fw"></i>
 							</div>
 						</div>
 						<select name="select-status" id="select-status"
 							th:field="*{status}">
-							<option value="Active">Activo</option>
-							<option value="Paused">Pausado</option>
+							<option value="ACTIVO">Activo</option>
+							<option value="PAUSADO">Pausado</option>
 						</select>
 					</div>
 					<button class="btn btn-info btn-block my-4" type="submit">Guardar</button>

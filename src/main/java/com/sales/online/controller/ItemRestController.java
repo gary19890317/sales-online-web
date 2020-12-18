@@ -30,11 +30,10 @@ public class ItemRestController {
   public ResponseEntity<PujarData> pujar(@RequestBody PujarData pujarData) {
     Optional<Item> optionalItem = itemService.findById(pujarData.getItemId());
     try {
-      if (optionalItem.isPresent()) {;
+      if (optionalItem.isPresent()) {
         Item item = optionalItem.get();
-        item.setLatestPrice(item.getLatestPrice() + pujarData.getPuja());
-        item = itemService.save(item);
-        pujarData.setLatestPrice(item.getLatestPrice());
+        itemService.makeAnOffer(pujarData.getUserId(), pujarData.getItemId(), pujarData.getPuja());
+        pujarData.setLatestPrice(itemService.getLatestItemPrice(item));
         return new ResponseEntity<>(pujarData, HttpStatus.OK);
       } else {
         pujarData.setError("No se encontró el producto seleccionado");
@@ -52,7 +51,7 @@ public class ItemRestController {
     Optional<Item> itemOptional = itemService.findById(id);
     if (itemOptional.isPresent()) {
       Item item = itemOptional.get();
-
+      item.setLatestPrice(itemService.getLatestItemPrice(item));
       ItemData data =
           new ItemData(
               id,

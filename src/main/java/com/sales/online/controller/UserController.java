@@ -117,16 +117,24 @@ public class UserController {
       BindingResult result,
       @PathVariable int id,
       Model model,
+      HttpSession httpSession,
       RedirectAttributes atts) {
     if (result.hasErrors()) {
       return "editUser";
     } else {
       if (userData.getPassword().equals(userData.getConfirmPassword())) {
-        userService.save(userData);
-        atts.addFlashAttribute("mensaje", "Usuario actualizado");
+        UserLogin userLogin = (UserLogin) httpSession.getAttribute("userLogged");
+        if (userLogin != null) {
+          userLogin.setName(userData.getName());
+          userService.save(userData);
+          atts.addFlashAttribute("mensaje", "Usuario actualizado");
+        } else {
+          model.addAttribute("mensaje", "Usuario no logueado");
+          return "editUser";
+        }
       } else {
         model.addAttribute("mensaje", "Las contraseñas no son iguales");
-        return "addUser";
+        return "editUser";
       }
       return "redirect:/users";
     }

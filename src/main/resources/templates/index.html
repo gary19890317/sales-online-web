@@ -103,7 +103,7 @@
 										<li><a href="team.html">team</a></li>
 										<li><a href="login-register.html">login & register</a></li>
 									</ul></li>
-								<li><a href="contact.html">Contacto</a></li>
+								<li><a th:href="@{/addItem}">Subastar</a></li>
 								</ul>
 							</nav>
 							<div class="mobile-menu clearfix visible-xs visible-sm">
@@ -147,7 +147,7 @@
 								<li><a th:href="@{/users/logInUser}"><span
 										class="ti-user"></span></a></li>
 								<li class="cart__menu"><span class="ti-shopping-cart"></span></li>
-								<li><span th:text="${session.userLogged.id} + '-' + ${session.userLogged.name}" th:unless="${session.userLogged == null}"> </span></li>
+								<li><span th:text="${session.userLogged.name}" th:unless="${session.userLogged == null}"> </span></li>
 							</ul>
 						</div>
 					</div>
@@ -259,7 +259,7 @@
 														Producto Nuevo <span class="text--theme">Más visto</span>
 													</h1>
 													<div class="slider__btn">
-														<a class="htc__btn" href="cart.html">ir a subasta</a>
+														<a class="htc__btn" th:onclick="'evento(' + ${item.id} + ')'" data-toggle="modal" data-target="#productModal" title="Quick View">ir a subasta</a>
 													</div>
 												</div>
 											</div>
@@ -353,8 +353,6 @@
 																		class="ti-plus"></span></a></li>
 																<li><a title="Add TO Cart" href="cart.html"><span
 																		class="ti-shopping-cart"></span></a></li>
-																<li><a title="Wishlist" href="wishlist.html"><span
-																		class="ti-heart"></span></a></li>
 															</ul>
 														</div>
 													</div>
@@ -396,8 +394,6 @@
 																		class="ti-plus"></span></a></li>
 																<li><a title="Add TO Cart" href="cart.html"><span
 																		class="ti-shopping-cart"></span></a></li>
-																<li><a title="Wishlist" href="wishlist.html"><span
-																		class="ti-heart"></span></a></li>
 															</ul>
 														</div>
 													</div>
@@ -439,8 +435,6 @@
 																		class="ti-plus"></span></a></li>
 																<li><a title="Add TO Cart" href="cart.html"><span
 																		class="ti-shopping-cart"></span></a></li>
-																<li><a title="Wishlist" href="wishlist.html"><span
-																		class="ti-heart"></span></a></li>
 															</ul>
 														</div>
 													</div>
@@ -637,6 +631,7 @@
 								</div>
 								<div class="addtocart-btn">
 									<a href="#" th:unless="${session.userLogged == null}" th:onclick="'pujar(' + ${session.userLogged.id} + ')'">Pujar</a>
+									<a th:href="@{/users/logInUser}" style="font-size: 12px;" th:unless="${session.userLogged != null}">Iniciar Sesión</a>
 								</div>
 							</div>
 							<!-- .product-info -->
@@ -679,7 +674,7 @@
 					document.getElementById("itemDescription").setAttribute("class","quick-desc");
 					document.getElementById("itemDescription").innerHTML=res.description;
 					document.getElementById("imagenPuja").setAttribute("src",res.pictureBase64);
-					document.getElementById("puja").value='10';
+					document.getElementById("puja").value=res.latestPrice + 10;
 		        },
 		        error: function(xhr) {
 					alert(xhr.status + " - " + xhr.responseText);
@@ -697,7 +692,8 @@
 		        contentType: 'application/json',
 		        success: function(res) {
 		        	document.getElementById("newPriceItem").innerHTML='$' + res.latestPrice;
-		        	alert('Puja realizada');
+		        	alert('Puja realizada');		        	
+		        	location.reload();
 		        },
 		        error: function(xhr) {
 					alert(xhr.status + " - " + xhr.responseText);

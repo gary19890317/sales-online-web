@@ -24,9 +24,7 @@ public class User {
   @NotBlank(message = "Rellenar el campo contraseña")
   private String password;
 
-  @NotBlank(message = "Rellenar el campo confirmar contraseña")
-  @Transient
-  private String confirmPassword;
+  @Transient private String confirmPassword;
 
   @NotBlank(message = "Rellenar el campo correo")
   private String address;
@@ -34,12 +32,7 @@ public class User {
   public User() {}
 
   public User(
-      int id,
-      @NotBlank(message = "Rellenar el campo nombre") String name,
-      @NotBlank(message = "Rellenar el campo de dirección") String email,
-      @NotBlank(message = "Rellenar el campo contraseña") String password,
-      @NotBlank(message = "Rellenar el campo confirmar contraseña") String confirmPassword,
-      @NotBlank(message = "Rellenar el campo correo") String address) {
+      int id, String name, String email, String password, String confirmPassword, String address) {
     super();
     this.id = id;
     this.name = name;
