@@ -302,24 +302,7 @@
 				<div class="row">
 					<div class="col-md-3">
 						<div class="product-categories-all">
-							<!--
-                            <div class="product-categories-title">
-                                <h3>Jewelry & watches</h3>
-                            </div>
-                            <div class="product-categories-menu">
-                                <ul>
-                                    <li><a href="#">awesome Rings</a></li>
-                                    <li><a href="#">Hot Earrings</a></li>
-                                    <li><a href="#">Jewelry Sets</a></li>
-                                    <li><a href="#">Beads Jewelry</a></li>
-                                    <li><a href="#">Men's Watches</a></li>
-                                    <li><a href="#">Women’s Watches</a></li>
-                                    <li><a href="#">Popular Bracelets</a></li>
-                                    <li><a href="#"> Pendant Necklaces</a></li>
-                                    <li><a href="#">Children's Watches</a></li>
-                                </ul>
-                            </div>
-                             -->
+							
 						</div>
 					</div>
 					<div class="col-md-9">
@@ -363,7 +346,7 @@
 
 																<!-- Se le coloca como id la misma ruta de la imagen para pasarselo al panel para pujar -->
 
-																<li onclick="evento(this)" th:id="${item.pictureBase64}" th:title="${item.name}"><a
+																<li th:onclick="'evento(' + ${item.id} + ')'"><a
 																	data-toggle="modal" data-target="#productModal"
 																	title="Quick View"
 																	class="quick-view modal-view detail-link" href="#"><span
@@ -406,7 +389,7 @@
 														</div>
 														<div class="product__hover__info">
 															<ul class="product__action">
-																<li onclick="evento(this)" th:id="${item.pictureBase64}"><a
+																<li th:onclick="'evento(' + ${item.id} + ')'"><a
 																	data-toggle="modal" data-target="#productModal"
 																	title="Quick View"
 																	class="quick-view modal-view detail-link" href="#"><span
@@ -449,7 +432,7 @@
 														</div>
 														<div class="product__hover__info">
 															<ul class="product__action">
-																<li onclick="evento(this)" th:id="${item.pictureBase64}"><a
+																<li th:onclick="'evento(' + ${item.id} + ')'"><a
 																	data-toggle="modal" data-target="#productModal"
 																	title="Quick View"
 																	class="quick-view modal-view detail-link" href="#"><span
@@ -625,7 +608,7 @@
 							</div>
 							<!-- end product images -->
 							<div class="product-info">
-								<h1 id="itemName">Simple Fabric Bags</h1>
+								<h1 id="itemName" name="itemName">Nombre del producto</h1>
 								<div class="rating__and__review">
 									<ul class="rating">
 										<li><span class="ti-star"></span></li>
@@ -635,7 +618,7 @@
 										<li><span class="ti-star"></span></li>
 									</ul>
 									<div class="review">
-										<a href="#">4 customer reviews</a>
+										<a href="#">Calificación de los Uduarios</a>
 									</div>
 								</div>
 								<div class="price-box-3">
@@ -643,50 +626,17 @@
 										<span id="newPriceItem" class="new-price">$17.20</span> <span id="oldPriceItem" class="old-price">$45.00</span>
 									</div>
 								</div>
-								<div class="quick-desc">Designed for simplicity and made
-									from high quality materials. Its sleek geometry and material
-									combinations creates a modern look.</div>
-								<div class="select__color">
-									<h2>Select color</h2>
-									<ul class="color__list">
-										<li class="red"><a title="Red" href="#">Red</a></li>
-										<li class="gold"><a title="Gold" href="#">Gold</a></li>
-										<li class="orange"><a title="Orange" href="#">Orange</a></li>
-										<li class="orange"><a title="Orange" href="#">Orange</a></li>
-									</ul>
-								</div>
+								<div id="itemDescription" class="quick-desc">Descripcion</div>
 								<div class="select__size">
-									<h2>Select size</h2>
+									<h2>Cantidad</h2>
 									<ul class="color__list">
-										<li class="l__size"><a title="L" href="#">L</a></li>
-										<li class="m__size"><a title="M" href="#">M</a></li>
-										<li class="s__size"><a title="S" href="#">S</a></li>
-										<li class="xl__size"><a title="XL" href="#">XL</a></li>
-										<li class="xxl__size"><a title="XXL" href="#">XXL</a></li>
+										<li class="l__size">
+											<input type="text" id="puja" name="puja">
+										</li>
 									</ul>
-								</div>
-								<div class="social-sharing">
-									<div class="widget widget_socialsharing_widget">
-										<h3 class="widget-title-modal">Share this product</h3>
-										<ul class="social-icons">
-											<li><a target="_blank" title="rss" href="#"
-												class="rss social-icon"><i class="zmdi zmdi-rss"></i></a></li>
-											<li><a target="_blank" title="Linkedin" href="#"
-												class="linkedin social-icon"><i
-													class="zmdi zmdi-linkedin"></i></a></li>
-											<li><a target="_blank" title="Pinterest" href="#"
-												class="pinterest social-icon"><i
-													class="zmdi zmdi-pinterest"></i></a></li>
-											<li><a target="_blank" title="Tumblr" href="#"
-												class="tumblr social-icon"><i class="zmdi zmdi-tumblr"></i></a></li>
-											<li><a target="_blank" title="Pinterest" href="#"
-												class="pinterest social-icon"><i
-													class="zmdi zmdi-pinterest"></i></a></li>
-										</ul>
-									</div>
 								</div>
 								<div class="addtocart-btn">
-									<a href="#">Pujar subasta</a>
+									<a href="#">Pujar</a>
 								</div>
 							</div>
 							<!-- .product-info -->
@@ -717,18 +667,24 @@
 	<!-- Main js file that contents all jQuery plugins activation. -->
 	<script src="js/main.js"></script>
 	<script>
-
-		function evento(li){
-				/*Este evento, en especifico "li" (simbolo "+" cuando nos 
-				superponemos en el item), es el elemento que cada item
-				tiene en el listado de ultimos agregados, proximas a finalizar y mejor calificado*/
-				/*para todas ellas se ocula el div de nombre productModal*/
-				document.getElementById("imagenPuja").setAttribute("src",li.id); //imgPuja es el id del elemento <img> en el div productModal
-				document.getElementById("itemName").innerHTML=li.title;
-				var product_title=$("[id='"+li.title+"']")[0].lastElementChild.lastElementChild;
-				document.getElementById("oldPriceItem").innerHTML=product_title.innerHTML;
-				document.getElementById("newPriceItem").innerHTML=$("[id='"+li.title+"']")[0].lastElementChild.firstElementChild.innerHTML;
-			
+		function evento(itemId){
+			alert('ID: ' + itemId);
+			$.ajax({
+		        url: "/items/item/" + itemId,
+		        type: 'GET',
+		        dataType: 'json',
+		        success: function(res) {
+		        	document.getElementById("itemName").innerHTML=res.name;
+		        	document.getElementById("oldPriceItem").innerHTML=res.startingPrice;
+					document.getElementById("newPriceItem").innerHTML=res.latestPrice;
+					document.getElementById("itemDescription").setAttribute("class","quick-desc");
+					document.getElementById("itemDescription").innerHTML=res.description;
+					document.getElementById("imagenPuja").setAttribute("src",res.pictureBase64);
+		        },
+		        error: function(xhr) {
+					alert(xhr.status + " - " + xhr.responseText);
+		        }
+		    });
 			}
 	</script>
 </body>
