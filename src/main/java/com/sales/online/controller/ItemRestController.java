@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sales.online.model.Item;
 import com.sales.online.model.ItemData;
 import com.sales.online.model.PujarData;
+import com.sales.online.model.RankingData;
 import com.sales.online.service.ItemService;
 
 @RestController
@@ -43,6 +44,24 @@ public class ItemRestController {
       e.printStackTrace();
       pujarData.setError("No fue posible realizar la oferta/puja");
       return new ResponseEntity<>(pujarData, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  @PostMapping("calificar")
+  public ResponseEntity<RankingData> calificar(@RequestBody RankingData rankingData) {
+    Optional<Item> optionalItem = itemService.findById(rankingData.getItemId());
+    try {
+      if (optionalItem.isPresent()) {
+        itemService.rank(rankingData.getUserId(), rankingData.getItemId(), rankingData.getStars());
+        return new ResponseEntity<>(rankingData, HttpStatus.OK);
+      } else {
+        rankingData.setError("No se encontró el producto seleccionado");
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      rankingData.setError("No fue posible calificar el producto");
+      return new ResponseEntity<>(rankingData, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 

@@ -1,6 +1,8 @@
 package com.sales.online.service;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,9 +22,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sales.online.controller.LoadDataComponent;
 import com.sales.online.model.EmailTemplate;
 import com.sales.online.model.Item;
+import com.sales.online.model.Ranking;
 import com.sales.online.model.Subasta;
 import com.sales.online.model.User;
 import com.sales.online.repository.ItemRepository;
+import com.sales.online.repository.RankingRepository;
 import com.sales.online.repository.SubastaRepository;
 import com.sales.online.repository.UserRepository;
 
@@ -37,6 +41,7 @@ public class ItemService {
   private ItemRepository itemRepository;
   private SubastaRepository subastaRepository;
   private UserRepository userRepository;
+  private RankingRepository rankingRepository;
   private EmailService emailService;
   private Environment env;
 
@@ -44,13 +49,30 @@ public class ItemService {
       ItemRepository itemRepository,
       SubastaRepository subastaRepository,
       UserRepository userRepository,
+      RankingRepository rankingRepository,
       EmailService emailService,
       Environment env) {
     this.itemRepository = itemRepository;
     this.subastaRepository = subastaRepository;
     this.userRepository = userRepository;
+    this.rankingRepository = rankingRepository;
     this.emailService = emailService;
     this.env = env;
+  }
+
+  public void rank(int userId, long itemId, int stars) {
+    Optional<User> optionalUser = userRepository.findById(userId);
+    Optional<Item> optionalItem = itemRepository.findById(itemId);
+    if (optionalUser.isPresent() && optionalItem.isPresent()) {
+      Ranking ranking = new Ranking();
+      ranking.setItem(optionalItem.get());
+      ranking.setUser(optionalUser.get());
+      ranking.setStars(stars);
+      ranking.setCreated(Timestamp.valueOf(LocalDateTime.now()));
+      rankingRepository.save(ranking);
+    } else {
+      throw new IllegalStateException("No se encontraró el Usuario o Producto a calificar");
+    }
   }
 
   public void makeAnOffer(int userId, long itemId, float offer) {
@@ -74,6 +96,7 @@ public class ItemService {
               byte[] image = LoadDataComponent.decompressBytes(item.getPicture());
               item.setPictureBase64(DatatypeConverter.printBase64Binary(image));
               item.setLatestPrice(getLatestItemPrice(item));
+              item.setRanking(rankingRepository.getAvgRanking(item.getId()));
               return item;
             });
   }
@@ -87,6 +110,7 @@ public class ItemService {
               byte[] image = LoadDataComponent.decompressBytes(item.getPicture());
               item.setPictureBase64(DatatypeConverter.printBase64Binary(image));
               item.setLatestPrice(getLatestItemPrice(item));
+              item.setRanking(rankingRepository.getAvgRanking(item.getId()));
               return item;
             })
         .collect(Collectors.toCollection(ArrayList::new));
@@ -167,6 +191,7 @@ public class ItemService {
               byte[] image = LoadDataComponent.decompressBytes(item.getPicture());
               item.setPictureBase64(DatatypeConverter.printBase64Binary(image));
               item.setLatestPrice(getLatestItemPrice(item));
+              item.setRanking(rankingRepository.getAvgRanking(item.getId()));
               return item;
             })
         .collect(Collectors.toCollection(ArrayList::new));

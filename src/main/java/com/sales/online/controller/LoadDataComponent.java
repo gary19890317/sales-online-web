@@ -34,7 +34,7 @@ public class LoadDataComponent {
         "/load/n64.jpg",
         "Control video juego nintento 64",
         125,
-        "2020-12-18T15:07:00",
+        "2020-12-18T18:29:00",
         "ACTIVO",
         3);
     addItem(
