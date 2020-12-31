@@ -11,4 +11,7 @@ public interface SubastaRepository extends JpaRepository<Subasta, Long> {
 
   @Query(value = "select s from Subasta s where s.item.id=:itemId order by s.offer desc")
   List<Subasta> findLatestPrice(long itemId);
+  
+  @Query(value = "select s from Subasta s where s.item.status='ACTIVO' and s.user.id=:userId")
+  List<Subasta> findSubastaByUser(int userId);
 }

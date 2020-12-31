@@ -124,6 +124,21 @@ public class ItemService {
     return itemRepository.itemNew(name);
   }
 
+  public List<Item> getCarItems(int userId) {
+    return subastaRepository
+        .findSubastaByUser(userId)
+        .stream()
+        .map(
+            (subasta) -> {
+              Item item = subasta.getItem();
+              byte[] image = LoadDataComponent.decompressBytes(item.getPicture());
+              item.setPictureBase64(DatatypeConverter.printBase64Binary(image));
+              item.setLatestPrice(getLatestItemPrice(item));
+              return item;
+            })
+        .collect(Collectors.toCollection(ArrayList::new));
+  }
+
   public List<Item> getNextToFinishItems() {
     return itemRepository
         .findNextToFinishItems()

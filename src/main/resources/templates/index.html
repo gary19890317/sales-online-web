@@ -146,7 +146,7 @@
 									class="ti-search"></span></li>
 								<li><a th:href="@{/users/logInUser}"><span
 										class="ti-user"></span></a></li>
-								<li class="cart__menu"><span class="ti-shopping-cart"></span></li>
+								<li class="cart__menu" th:unless="${session.userLogged == null}"><span class="ti-shopping-cart"></span></li>
 								<li><span th:text="${session.userLogged.name}"
 									th:unless="${session.userLogged == null}"> </span></li>
 							</ul>
@@ -169,7 +169,7 @@
 						<div class="col-md-12">
 							<div class="search__inner">
 								<form action="#" method="get">
-									<input placeholder="Search here... " type="text">
+									<input placeholder="¿Qué desea encontrar?... " type="text">
 									<button type="submit"></button>
 								</form>
 								<div class="search__close__btn">
@@ -190,34 +190,17 @@
 						<a href="#"><i class="zmdi zmdi-close"></i></a>
 					</div>
 					<div class="shp__cart__wrap">
-						<div class="shp__single__product">
+						<div class="shp__single__product" th:each="item, iterator : ${car}">
 							<div class="shp__pro__thumb">
-								<a href="#"> <img src="images/product/sm-img/1.jpg"
+								<a href="#"> <img th:src="${item.pictureBase64}"
 									alt="product images">
 								</a>
 							</div>
 							<div class="shp__pro__details">
 								<h2>
-									<a href="product-details.html">BO&Play Wireless Speaker</a>
+									<a href="product-details.html" th:text="${item.name}"></a>
 								</h2>
-								<span class="quantity">QTY: 1</span> <span class="shp__price">$105.00</span>
-							</div>
-							<div class="remove__btn">
-								<a href="#" title="Remove this item"><i
-									class="zmdi zmdi-close"></i></a>
-							</div>
-						</div>
-						<div class="shp__single__product">
-							<div class="shp__pro__thumb">
-								<a href="#"> <img src="images/product/sm-img/2.jpg"
-									alt="product images">
-								</a>
-							</div>
-							<div class="shp__pro__details">
-								<h2>
-									<a href="product-details.html">Brone Candle</a>
-								</h2>
-								<span class="quantity">QTY: 1</span> <span class="shp__price">$25.00</span>
+								<span class="quantity">QTY: 1</span> <span class="shp__price" th:text="${item.latestPrice}"></span>
 							</div>
 							<div class="remove__btn">
 								<a href="#" title="Remove this item"><i
@@ -225,13 +208,8 @@
 							</div>
 						</div>
 					</div>
-					<ul class="shoping__total">
-						<li class="subtotal">Subtotal:</li>
-						<li class="total__price">$130.00</li>
-					</ul>
-					<ul class="shopping__btn">
-						<li><a href="cart.html">View Cart</a></li>
-						<li class="shp__checkout"><a href="checkout.html">Checkout</a></li>
+					<ul class="shoping__total" style="font-size: 22px">
+						<li><b>Productos activos en subasta</b></li>
 					</ul>
 				</div>
 			</div>
