@@ -55,89 +55,10 @@
 							<nav class="mainmenu__nav hidden-xs hidden-sm">
 								<ul class="main__menu">
 									<li class="drop"><a th:href="@{/index}">Inicio</a></li>
-									<li class="drop"><a href="shop.html">Compras</a>
-										<ul class="dropdown mega_dropdown">
-											<!-- Start Single Mega MEnu -->
-											<li><a class="mega__title" href="shop.html">shop
-													layout</a>
-												<ul class="mega__item">
-													<li><a href="shop.html">default shop</a></li>
-												</ul></li>
-											<!-- End Single Mega MEnu -->
-											<!-- Start Single Mega MEnu -->
-											<li><a class="mega__title" href="shop.html">product
-													details layout</a>
-												<ul class="mega__item">
-													<li><a href="product-details.html">tab style 1</a></li></li>
-										</ul></li>
-									<!-- End Single Mega MEnu -->
-									<!-- Start Single Mega MEnu -->
-									<li>
-										<ul class="mega__item">
-											<li>
-												<div class="mega-item-img">
-													<a href="shop.html"> <img
-														src="images/feature-img/3.png" alt="">
-													</a>
-												</div>
-											</li>
-										</ul>
-									</li>
-									<!-- End Single Mega MEnu -->
-								</ul>
-
-								<li class="drop"><a href="#">Páginas</a>
-									<ul class="dropdown">
-										<li><a href="about.html">about</a></li>
-										<li><a href="#">testimonials <span><i
-													class="zmdi zmdi-chevron-right"></i></span></a>
-											<ul class="lavel-dropdown">
-												<li><a href="customer-review.html">customer review</a></li>
-											</ul></li>
-										<li><a href="shop.html">shop</a></li>
-										<li><a href="shop-sidebar.html">shop sidebar</a></li>
-										<li><a href="product-details.html">product details</a></li>
-										<li><a href="cart.html">cart</a></li>
-										<li><a href="wishlist.html">wishlist</a></li>
-										<li><a href="checkout.html">checkout</a></li>
-										<li><a href="team.html">team</a></li>
-										<li><a href="login-register.html">login & register</a></li>
-									</ul></li>
-								<li><a th:href="@{/addItem}">Subastar</a></li>
+									<li th:unless="${session.userLogged == null}"><a th:href="@{/addItem}">Subastar</a></li>
+									
 								</ul>
 							</nav>
-							<div class="mobile-menu clearfix visible-xs visible-sm">
-								<nav id="mobile_dropdown">
-									<ul>
-										<li><a href="index.html">Home</a></li>
-										<li><a href="#">portfolio</a>
-											<ul>
-												<li><a href="portfolio-card-box-2.html">portfolio</a></li>
-												<li><a href="single-portfolio.html">Single
-														portfolio</a></li>
-											</ul></li>
-										<li><a href="blog.html">blog</a>
-											<ul>
-												<li><a href="blog.html">blog 3 column</a></li>
-												<li><a href="blog-details.html">Blog details</a></li>
-											</ul></li>
-										<li><a href="#">pages</a>
-											<ul>
-												<li><a href="about.html">about</a></li>
-												<li><a href="customer-review.html">customer review</a></li>
-												<li><a href="shop.html">shop</a></li>
-												<li><a href="shop-sidebar.html">shop sidebar</a></li>
-												<li><a href="product-details.html">product details</a></li>
-												<li><a href="cart.html">cart</a></li>
-												<li><a href="wishlist.html">wishlist</a></li>
-												<li><a href="checkout.html">checkout</a></li>
-												<li><a href="team.html">team</a></li>
-												<li><a href="login-register.html">login & register</a></li>
-											</ul></li>
-										<li><a href="contact.html">contact</a></li>
-									</ul>
-								</nav>
-							</div>
 						</div>
 						<!-- End Main menu Ares -->
 						<div class="col-md-2 col-sm-4 col-xs-3">
@@ -146,7 +67,8 @@
 									class="ti-search"></span></li>
 								<li><a th:href="@{/users/logInUser}"><span
 										class="ti-user"></span></a></li>
-								<li class="cart__menu" th:unless="${session.userLogged == null}"><span class="ti-shopping-cart"></span></li>
+								<li class="cart__menu" th:unless="${session.userLogged == null}"><span
+									class="ti-shopping-cart"></span></li>
 								<li><span th:text="${session.userLogged.name}"
 									th:unless="${session.userLogged == null}"> </span></li>
 							</ul>
@@ -168,8 +90,10 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="search__inner">
-								<form action="#" method="get">
-									<input placeholder="¿Qué desea encontrar?... " type="text">
+								<form th:action="@{/index}"
+									method="get">
+									<input placeholder="¿Qué desea encontrar?... " type="text"
+										th:name="name">
 									<button type="submit"></button>
 								</form>
 								<div class="search__close__btn">
@@ -190,7 +114,8 @@
 						<a href="#"><i class="zmdi zmdi-close"></i></a>
 					</div>
 					<div class="shp__cart__wrap">
-						<div class="shp__single__product" th:each="item, iterator : ${car}">
+						<div class="shp__single__product"
+							th:each="item, iterator : ${car}">
 							<div class="shp__pro__thumb">
 								<a href="#"> <img th:src="${item.pictureBase64}"
 									alt="product images">
@@ -200,7 +125,8 @@
 								<h2>
 									<a href="product-details.html" th:text="${item.name}"></a>
 								</h2>
-								<span class="quantity">QTY: 1</span> <span class="shp__price" th:text="${item.latestPrice}"></span>
+								<span class="quantity">QTY: 1</span> <span class="shp__price"
+									th:text="${item.latestPrice}"></span>
 							</div>
 							<div class="remove__btn">
 								<a href="#" title="Remove this item"><i
@@ -260,13 +186,13 @@
 							</div>
 							<div class="category-menu-list">
 								<ul>
-									<li><a href="#"><img alt=""
+									<li><a th:href="@{/index(category='video_juegos')}"><img alt=""
 											src="images/icons/thum7.png"> Video Juegos</a></li>
-									<li><a href="#"><img alt=""
+									<li><a th:href="@{/index(category='libros')}"><img alt=""
 											src="images/icons/thum7.png"> Libros</a></li>
-									<li><a href="#"><img alt=""
+									<li><a th:href="@{/index(category='electrodomesticos')}"><img alt=""
 											src="images/icons/thum7.png"> Electrodométicos</a></li>
-									<li><a href="#"><img alt=""
+									<li><a th:href="@{/index(category='all')}"><img alt=""
 											src="images/icons/thum3.png"> Todas las categorías</a></li>
 								</ul>
 							</div>
@@ -560,7 +486,7 @@
 		<!-- End Footer Area -->
 	</div>
 	<!-- Body main wrapper end -->
-	
+
 	<!-- QUICKVIEW PRODUCT -->
 	<div id="quickview-wrapper">
 		<!-- Modal -->
@@ -586,13 +512,24 @@
 							<div class="product-info">
 								<input type="hidden" id="itemIdElement">
 								<h1 id="itemName" name="itemName">Nombre del producto</h1>
-								<div class="rating__and__review" th:unless="${session.userLogged == null}">
+								<div class="rating__and__review"
+									th:unless="${session.userLogged == null}">
 									<ul class="rating" style="cursor: pointer">
-										<li th:onclick="'calificar(' + ${session.userLogged.id} + ', 1)'"><span class="ti-star"></span></li>
-										<li th:onclick="'calificar(' + ${session.userLogged.id} + ', 2)'"><span class="ti-star"></span></li>
-										<li th:onclick="'calificar(' + ${session.userLogged.id} + ', 3)'"><span class="ti-star"></span></li>
-										<li th:onclick="'calificar(' + ${session.userLogged.id} + ', 4)'"><span class="ti-star"></span></li>
-										<li th:onclick="'calificar(' + ${session.userLogged.id} + ', 5)'"><span class="ti-star"></span></li>
+										<li
+											th:onclick="'calificar(' + ${session.userLogged.id} + ', 1)'"><span
+											class="ti-star"></span></li>
+										<li
+											th:onclick="'calificar(' + ${session.userLogged.id} + ', 2)'"><span
+											class="ti-star"></span></li>
+										<li
+											th:onclick="'calificar(' + ${session.userLogged.id} + ', 3)'"><span
+											class="ti-star"></span></li>
+										<li
+											th:onclick="'calificar(' + ${session.userLogged.id} + ', 4)'"><span
+											class="ti-star"></span></li>
+										<li
+											th:onclick="'calificar(' + ${session.userLogged.id} + ', 5)'"><span
+											class="ti-star"></span></li>
 									</ul>
 									<div class="review">
 										<a href="#">Calificación</a>
@@ -632,21 +569,23 @@
 		<!-- END Modal -->
 	</div>
 	<!-- END QUICKVIEW PRODUCT -->
-	
+
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
 		<div class="modal-dialog">
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" onclick="location.reload();" class="close" data-dismiss="modal">&times;</button>
+					<button type="button" onclick="location.reload();" class="close"
+						data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">Subastas Online</h4>
 				</div>
 				<div class="modal-body" style="text-align: center;">
 					<p id="modalText">.</p>
 				</div>
 				<div class="modal-footer">
-					<button type="button" onclick="location.reload();" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" onclick="location.reload();"
+						class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>
@@ -667,76 +606,80 @@
 	<script src="js/main.js"></script>
 	<script>
 		function openItemDialog(itemId) {
-			$.ajax({
-					url : "/items/item/" + itemId,
-					type : 'GET',
-					dataType : 'json',
-					success : function(res) {
-						document.getElementById("itemName").innerHTML = res.name;
-						document.getElementById("oldPriceItem").innerHTML = '$'
-								+ res.startingPrice;
-						document.getElementById("newPriceItem").innerHTML = '$'
-								+ res.latestPrice;
-						document.getElementById("itemDescription")
-								.setAttribute("class", "quick-desc");
-						document.getElementById("itemDescription").innerHTML = res.description;
-						document.getElementById("imagenPuja").setAttribute(
-								"src", res.pictureBase64);
-						document.getElementById("puja").value = res.latestPrice + 10;
-						document.getElementById("itemIdElement").value = itemId;
-					},
-					error : function(xhr) {
-						alert(xhr.status + " - " + xhr.responseText);
-					}
-				});
+			$
+					.ajax({
+						url : "/items/item/" + itemId,
+						type : 'GET',
+						dataType : 'json',
+						success : function(res) {
+							document.getElementById("itemName").innerHTML = res.name;
+							document.getElementById("oldPriceItem").innerHTML = '$'
+									+ res.startingPrice;
+							document.getElementById("newPriceItem").innerHTML = '$'
+									+ res.latestPrice;
+							document.getElementById("itemDescription")
+									.setAttribute("class", "quick-desc");
+							document.getElementById("itemDescription").innerHTML = res.description;
+							document.getElementById("imagenPuja").setAttribute(
+									"src", res.pictureBase64);
+							document.getElementById("puja").value = res.latestPrice + 10;
+							document.getElementById("itemIdElement").value = itemId;
+						},
+						error : function(xhr) {
+							alert(xhr.status + " - " + xhr.responseText);
+						}
+					});
 		}
 
 		function pujar(userId) {
 			var itemId = document.getElementById("itemIdElement").value;
 			var puja = document.getElementById("puja").value;
-			$.ajax({
-				url : "/items/pujar",
-				data : JSON.stringify({
-					"itemId" : itemId,
-					"puja" : puja,
-					"userId" : userId
-				}),
-				type : 'POST',
-				dataType : 'json',
-				contentType : 'application/json',
-				success : function(res) {
-					document.getElementById("newPriceItem").innerHTML = '$'
-							+ res.latestPrice;
-					document.getElementById("modalText").innerHTML = 'Puja realizada con éxito';
-					$("#myModal").modal();
-				},
-				error : function(xhr) {
-					alert(xhr.status + " - " + xhr.responseText);
-				}
-			});
+			$
+					.ajax({
+						url : "/items/pujar",
+						data : JSON.stringify({
+							"itemId" : itemId,
+							"puja" : puja,
+							"userId" : userId
+						}),
+						type : 'POST',
+						dataType : 'json',
+						contentType : 'application/json',
+						success : function(res) {
+							document.getElementById("newPriceItem").innerHTML = '$'
+									+ res.latestPrice;
+							document.getElementById("modalText").innerHTML = 'Puja realizada con éxito';
+							$("#myModal").modal();
+						},
+						error : function(xhr) {
+							alert(xhr.status + " - " + xhr.responseText);
+						}
+					});
 		}
-		
+
 		function calificar(userId, estrellas) {
 			var itemId = document.getElementById("itemIdElement").value;
-			$.ajax({
-				url : "/items/calificar",
-				data : JSON.stringify({
-					"itemId" : itemId,
-					"stars" : estrellas,
-					"userId" : userId
-				}),
-				type : 'POST',
-				dataType : 'json',
-				contentType : 'application/json',
-				success : function(res) {
-					document.getElementById("modalText").innerHTML = 'Producto calificado con ' + estrellas + " estrellas.";
-					$("#myModal").modal();
-				},
-				error : function(xhr) {
-					alert(xhr.status + " - " + xhr.responseText);
-				}
-			});
-		}		
+			$
+					.ajax({
+						url : "/items/calificar",
+						data : JSON.stringify({
+							"itemId" : itemId,
+							"stars" : estrellas,
+							"userId" : userId
+						}),
+						type : 'POST',
+						dataType : 'json',
+						contentType : 'application/json',
+						success : function(res) {
+							document.getElementById("modalText").innerHTML = 'Producto calificado con '
+									+ estrellas + " estrellas.";
+							$("#myModal").modal();
+						},
+						error : function(xhr) {
+							alert(xhr.status + " - " + xhr.responseText);
+						}
+					});
+		}
 	</script>
 </body>
 

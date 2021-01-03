@@ -23,6 +23,7 @@ import com.sales.online.controller.LoadDataComponent;
 import com.sales.online.model.EmailTemplate;
 import com.sales.online.model.Item;
 import com.sales.online.model.Ranking;
+import com.sales.online.model.SearchCriteria;
 import com.sales.online.model.Subasta;
 import com.sales.online.model.User;
 import com.sales.online.repository.ItemRepository;
@@ -100,7 +101,22 @@ public class ItemService {
               return item;
             });
   }
-
+  
+  public List<Item> getLatestItems(SearchCriteria searchCriteria) {
+	    return itemRepository
+	        .findLatestItems(searchCriteria.getName())
+	        .stream()
+	        .map(
+	            (item) -> {
+	              byte[] image = LoadDataComponent.decompressBytes(item.getPicture());
+	              item.setPictureBase64(DatatypeConverter.printBase64Binary(image));
+	              item.setLatestPrice(getLatestItemPrice(item));
+	              item.setRanking(rankingRepository.getAvgRanking(item.getId()));
+	              return item;
+	            })
+	        .collect(Collectors.toCollection(ArrayList::new));
+	  }
+  
   public List<Item> getLatestItems() {
     return itemRepository
         .findLatestItems()
