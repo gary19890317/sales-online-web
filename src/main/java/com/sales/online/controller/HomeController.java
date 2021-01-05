@@ -5,10 +5,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sales.online.model.SearchCriteria;
 import com.sales.online.model.UserLogin;
 import com.sales.online.service.ItemService;
 
@@ -26,19 +24,17 @@ public class HomeController {
   @GetMapping({"/", "index"})
   public String index(
       Model model,
-      @ModelAttribute SearchCriteria searchCriteria,
       @RequestParam(value = "name", required = false) String name,
       @RequestParam(value = "category", required = false) String category,
       HttpSession httpSession) {
-    if (searchCriteria.getName() != null) {
-      model.addAttribute("latestItems", itemService.getLatestItems(searchCriteria));
-      // model.addAttribute("bestRatedItems", itemService.getBestRatedItems());
-      // model.addAttribute("nextToFinishItems", itemService.getNextToFinishItems());
-    } else {
-      model.addAttribute("latestItems", itemService.getLatestItems());
-      model.addAttribute("bestRatedItems", itemService.getBestRatedItems());
-      model.addAttribute("nextToFinishItems", itemService.getNextToFinishItems());
-    }
+    model.addAttribute(
+        "latestItems", itemService.getLatestItems(setupParameter(name), setupParameter(category)));
+    model.addAttribute(
+        "bestRatedItems",
+        itemService.getBestRatedItems(setupParameter(name), setupParameter(category)));
+    model.addAttribute(
+        "nextToFinishItems",
+        itemService.getNextToFinishItems(setupParameter(name), setupParameter(category)));
     UserLogin userLogin = (UserLogin) httpSession.getAttribute("userLogged");
     if (userLogin != null) {
       model.addAttribute("car", itemService.getCarItems(userLogin.getId()));
@@ -65,5 +61,9 @@ public class HomeController {
 
   public void setRememberMePassword(String rememberMePassword) {
     this.rememberMePassword = rememberMePassword;
+  }
+
+  private String setupParameter(String data) {
+    return data == null ? "" : data;
   }
 }

@@ -101,6 +101,21 @@
 							<option value="PAUSADO">Pausado</option>
 						</select>
 					</div>
+					<br>
+					<div class="input-group ">
+						<div class="input-group-prepend">
+							<div class="input-group-text">
+								<i class="fa fa-eye fa-fw"></i>
+							</div>
+						</div>
+						<select name="select-category" id="select-category"
+							th:field="*{category}">
+							<option value="video_juego">Video Juegos</option>
+							<option value="libros">Libros</option>
+							<option value="electrodomesticos">Electrodomesticos</option>
+							<option value="all">Otros</option>
+						</select>
+					</div>
 					<button class="btn btn-info btn-block my-4" type="submit">Guardar</button>
 				</form>
 				<!-- Default form login -->

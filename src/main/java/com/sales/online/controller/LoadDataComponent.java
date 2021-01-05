@@ -30,15 +30,17 @@ public class LoadDataComponent {
 
   private void loadData() {
     addItem(
-        "Control Nintengo64",
+        "Control Nintendo64",
+        "video_juegos",
         "/load/n64.jpg",
-        "Control video juego nintento 64",
+        "Control video juego nintendo 64",
         125,
         "2020-12-18T18:29:00",
         "ACTIVO",
         3);
     addItem(
         "Play Station 4",
+        "video_juegos",
         "/load/ps4.jpg",
         "Consola de video juego play station 4",
         347,
@@ -47,6 +49,7 @@ public class LoadDataComponent {
         5);
     addItem(
         "Super Sness",
+        "video_juegos",
         "/load/sness.jpg",
         "Conola de video juego clásico Sness",
         289,
@@ -56,6 +59,7 @@ public class LoadDataComponent {
     addItem(
         "Wii",
         "/load/wii.jpg",
+        "video_juegos",
         "Consola de video juego Wii",
         321,
         "2020-12-10T10:00:00",
@@ -64,6 +68,7 @@ public class LoadDataComponent {
 
     addItem(
         "Play Statio 5",
+        "video_juegos",
         "/load/ps5.jpg",
         "Consola de video juego play station 4",
         460,
@@ -72,6 +77,7 @@ public class LoadDataComponent {
         0);
     addItem(
         "Super Nintendo",
+        "video_juegos",
         "/load/game-cube.jpg",
         "Consola de video juego clásico Super nintendo",
         160,
@@ -80,6 +86,7 @@ public class LoadDataComponent {
         0);
     addItem(
         "PC Gamer",
+        "video_juegos",
         "/load/pc.jpg",
         "PC Gamer Intel core i7 10th",
         987,
@@ -89,6 +96,7 @@ public class LoadDataComponent {
 
     addItem(
         "Play Station 2",
+        "video_juegos",
         "/load/ps2.jpg",
         "Consola de video juego play station 2",
         567,
@@ -97,6 +105,7 @@ public class LoadDataComponent {
         5);
     addItem(
         "Wii U",
+        "video_juegos",
         "/load/wii-u.jpg",
         "Consola de video juego Wii U",
         289,
@@ -107,6 +116,7 @@ public class LoadDataComponent {
 
   private void addItem(
       String name,
+      String category,
       String imagePath,
       String description,
       float price,
@@ -120,6 +130,7 @@ public class LoadDataComponent {
       Item item =
           new Item(
               name,
+              category,
               compressBytes(image),
               description,
               price,

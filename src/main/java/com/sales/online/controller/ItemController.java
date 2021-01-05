@@ -47,6 +47,7 @@ public class ItemController {
       Item item =
           new Item(
               itemData.getName(),
+              itemData.getCategory(),
               compressBytes(file.getBytes()),
               itemData.getDescription(),
               itemData.getStartingPrice(),

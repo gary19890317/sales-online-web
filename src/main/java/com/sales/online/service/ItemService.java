@@ -23,7 +23,6 @@ import com.sales.online.controller.LoadDataComponent;
 import com.sales.online.model.EmailTemplate;
 import com.sales.online.model.Item;
 import com.sales.online.model.Ranking;
-import com.sales.online.model.SearchCriteria;
 import com.sales.online.model.Subasta;
 import com.sales.online.model.User;
 import com.sales.online.repository.ItemRepository;
@@ -101,22 +100,63 @@ public class ItemService {
               return item;
             });
   }
-  
-  public List<Item> getLatestItems(SearchCriteria searchCriteria) {
-	    return itemRepository
-	        .findLatestItems(searchCriteria.getName())
-	        .stream()
-	        .map(
-	            (item) -> {
-	              byte[] image = LoadDataComponent.decompressBytes(item.getPicture());
-	              item.setPictureBase64(DatatypeConverter.printBase64Binary(image));
-	              item.setLatestPrice(getLatestItemPrice(item));
-	              item.setRanking(rankingRepository.getAvgRanking(item.getId()));
-	              return item;
-	            })
-	        .collect(Collectors.toCollection(ArrayList::new));
-	  }
-  
+
+  public List<Item> getLatestItems(String name, String category) {
+    if (!name.isEmpty() && !category.isEmpty()) {
+      return itemRepository
+          .findLatestItemsByNameAndCategory(name, category)
+          .stream()
+          .map(
+              (item) -> {
+                byte[] image = LoadDataComponent.decompressBytes(item.getPicture());
+                item.setPictureBase64(DatatypeConverter.printBase64Binary(image));
+                item.setLatestPrice(getLatestItemPrice(item));
+                item.setRanking(rankingRepository.getAvgRanking(item.getId()));
+                return item;
+              })
+          .collect(Collectors.toCollection(ArrayList::new));
+    } else if (!category.isEmpty() && name.isEmpty()) {
+      return itemRepository
+          .findLatestItemsByCategory(category)
+          .stream()
+          .map(
+              (item) -> {
+                byte[] image = LoadDataComponent.decompressBytes(item.getPicture());
+                item.setPictureBase64(DatatypeConverter.printBase64Binary(image));
+                item.setLatestPrice(getLatestItemPrice(item));
+                item.setRanking(rankingRepository.getAvgRanking(item.getId()));
+                return item;
+              })
+          .collect(Collectors.toCollection(ArrayList::new));
+    } else if (!name.isEmpty() && category.isEmpty()) {
+      return itemRepository
+          .findLatestItemsByName(name)
+          .stream()
+          .map(
+              (item) -> {
+                byte[] image = LoadDataComponent.decompressBytes(item.getPicture());
+                item.setPictureBase64(DatatypeConverter.printBase64Binary(image));
+                item.setLatestPrice(getLatestItemPrice(item));
+                item.setRanking(rankingRepository.getAvgRanking(item.getId()));
+                return item;
+              })
+          .collect(Collectors.toCollection(ArrayList::new));
+    } else {
+      return itemRepository
+          .findLatestItems()
+          .stream()
+          .map(
+              (item) -> {
+                byte[] image = LoadDataComponent.decompressBytes(item.getPicture());
+                item.setPictureBase64(DatatypeConverter.printBase64Binary(image));
+                item.setLatestPrice(getLatestItemPrice(item));
+                item.setRanking(rankingRepository.getAvgRanking(item.getId()));
+                return item;
+              })
+          .collect(Collectors.toCollection(ArrayList::new));
+    }
+  }
+
   public List<Item> getLatestItems() {
     return itemRepository
         .findLatestItems()
@@ -153,6 +193,61 @@ public class ItemService {
               return item;
             })
         .collect(Collectors.toCollection(ArrayList::new));
+  }
+
+  public List<Item> getNextToFinishItems(String name, String category) {
+    if (!name.isEmpty() && !category.isEmpty()) {
+      return itemRepository
+          .findNextToFinishItemsByNameAndCategory(name, category)
+          .stream()
+          .map(
+              (item) -> {
+                byte[] image = LoadDataComponent.decompressBytes(item.getPicture());
+                item.setPictureBase64(DatatypeConverter.printBase64Binary(image));
+                item.setLatestPrice(getLatestItemPrice(item));
+                return item;
+              })
+          .collect(Collectors.toCollection(ArrayList::new));
+
+    } else if (!category.isEmpty() && name.isEmpty()) {
+      return itemRepository
+          .findNextToFinishItemsByCategory(category)
+          .stream()
+          .map(
+              (item) -> {
+                byte[] image = LoadDataComponent.decompressBytes(item.getPicture());
+                item.setPictureBase64(DatatypeConverter.printBase64Binary(image));
+                item.setLatestPrice(getLatestItemPrice(item));
+                return item;
+              })
+          .collect(Collectors.toCollection(ArrayList::new));
+
+    } else if (!name.isEmpty() && category.isEmpty()) {
+      return itemRepository
+          .findNextToFinishItemsByName(name)
+          .stream()
+          .map(
+              (item) -> {
+                byte[] image = LoadDataComponent.decompressBytes(item.getPicture());
+                item.setPictureBase64(DatatypeConverter.printBase64Binary(image));
+                item.setLatestPrice(getLatestItemPrice(item));
+                return item;
+              })
+          .collect(Collectors.toCollection(ArrayList::new));
+
+    } else {
+      return itemRepository
+          .findNextToFinishItems()
+          .stream()
+          .map(
+              (item) -> {
+                byte[] image = LoadDataComponent.decompressBytes(item.getPicture());
+                item.setPictureBase64(DatatypeConverter.printBase64Binary(image));
+                item.setLatestPrice(getLatestItemPrice(item));
+                return item;
+              })
+          .collect(Collectors.toCollection(ArrayList::new));
+    }
   }
 
   public List<Item> getNextToFinishItems() {
@@ -211,6 +306,62 @@ public class ItemService {
             })
         .collect(Collectors.toCollection(ArrayList::new));
     ;
+  }
+
+  public List<Item> getBestRatedItems(String name, String category) {
+    if (!name.isEmpty() && !category.isEmpty()) {
+      return itemRepository
+          .findBestRatedItemsByNameAndCategory(name, category)
+          .stream()
+          .map(
+              (item) -> {
+                byte[] image = LoadDataComponent.decompressBytes(item.getPicture());
+                item.setPictureBase64(DatatypeConverter.printBase64Binary(image));
+                item.setLatestPrice(getLatestItemPrice(item));
+                item.setRanking(rankingRepository.getAvgRanking(item.getId()));
+                return item;
+              })
+          .collect(Collectors.toCollection(ArrayList::new));
+    } else if (!category.isEmpty() && name.isEmpty()) {
+      return itemRepository
+          .findBestRatedItemsByCategory(category)
+          .stream()
+          .map(
+              (item) -> {
+                byte[] image = LoadDataComponent.decompressBytes(item.getPicture());
+                item.setPictureBase64(DatatypeConverter.printBase64Binary(image));
+                item.setLatestPrice(getLatestItemPrice(item));
+                item.setRanking(rankingRepository.getAvgRanking(item.getId()));
+                return item;
+              })
+          .collect(Collectors.toCollection(ArrayList::new));
+    } else if (!name.isEmpty() && category.isEmpty()) {
+      return itemRepository
+          .findBestRatedItemsByName(name)
+          .stream()
+          .map(
+              (item) -> {
+                byte[] image = LoadDataComponent.decompressBytes(item.getPicture());
+                item.setPictureBase64(DatatypeConverter.printBase64Binary(image));
+                item.setLatestPrice(getLatestItemPrice(item));
+                item.setRanking(rankingRepository.getAvgRanking(item.getId()));
+                return item;
+              })
+          .collect(Collectors.toCollection(ArrayList::new));
+    } else {
+      return itemRepository
+          .findBestRatedItems()
+          .stream()
+          .map(
+              (item) -> {
+                byte[] image = LoadDataComponent.decompressBytes(item.getPicture());
+                item.setPictureBase64(DatatypeConverter.printBase64Binary(image));
+                item.setLatestPrice(getLatestItemPrice(item));
+                item.setRanking(rankingRepository.getAvgRanking(item.getId()));
+                return item;
+              })
+          .collect(Collectors.toCollection(ArrayList::new));
+    }
   }
 
   public List<Item> getBestRatedItems() {

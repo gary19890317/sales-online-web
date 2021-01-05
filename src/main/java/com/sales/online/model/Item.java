@@ -21,6 +21,8 @@ public class Item {
 
   private String name;
 
+  private String category;
+
   @Column(length = 1000000)
   private byte[] picture;
 
@@ -44,6 +46,7 @@ public class Item {
 
   public Item(
       String name,
+      String category,
       String expirationDate_aux,
       float startingPrice,
       float latestPrice,
@@ -52,6 +55,7 @@ public class Item {
       int ranking,
       String status) {
     this.name = name;
+    this.category = category;
     this.expirationDate_aux = expirationDate_aux;
     this.startingPrice = startingPrice;
     this.latestPrice = latestPrice;
@@ -61,6 +65,7 @@ public class Item {
 
   public Item(
       String name,
+      String category,
       byte[] picture,
       float startingPrice,
       String description,
@@ -68,6 +73,7 @@ public class Item {
       String status) {
     super();
     this.name = name;
+    this.category = category;
     this.picture = picture;
     this.startingPrice = startingPrice;
     this.description = description;
@@ -79,6 +85,7 @@ public class Item {
 
   public Item(
       String name,
+      String category,
       byte[] picture,
       String description,
       float startingPrice,
@@ -87,6 +94,7 @@ public class Item {
       int ranking) {
     super();
     this.name = name;
+    this.category = category;
     this.picture = picture;
     this.description = description;
     this.startingPrice = startingPrice;
@@ -111,6 +119,14 @@ public class Item {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public String getCategory() {
+    return category;
+  }
+
+  public void setCategory(String category) {
+    this.category = category;
   }
 
   public byte[] getPicture() {

@@ -186,13 +186,13 @@
 							</div>
 							<div class="category-menu-list">
 								<ul>
-									<li><a th:href="@{/index(category='video_juegos')}"><img alt=""
+									<li><a th:href="@{/index(category='video_juegos', name=${param.name})}"><img alt=""
 											src="images/icons/thum7.png"> Video Juegos</a></li>
-									<li><a th:href="@{/index(category='libros')}"><img alt=""
+									<li><a th:href="@{/index(category='libros', name=${param.name})}"><img alt=""
 											src="images/icons/thum7.png"> Libros</a></li>
-									<li><a th:href="@{/index(category='electrodomesticos')}"><img alt=""
+									<li><a th:href="@{/index(category='electrodomesticos', name=${param.name})}"><img alt=""
 											src="images/icons/thum7.png"> Electrodométicos</a></li>
-									<li><a th:href="@{/index(category='all')}"><img alt=""
+									<li><a th:href="@{/index(category='all', name=${param.name})}"><img alt=""
 											src="images/icons/thum3.png"> Todas las categorías</a></li>
 								</ul>
 							</div>
