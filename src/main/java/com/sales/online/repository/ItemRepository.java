@@ -10,25 +10,25 @@ import com.sales.online.model.Item;
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
   @Query(
-      value = "select * from item where datediff('hour', now(), created) <= 2 and status='ACTIVO'",
+      value = "select * from item where TIMESTAMPDIFF(hour, now(), created) <= 2 and status='ACTIVO'",
       nativeQuery = true)
   List<Item> findLatestItems();
 
   @Query(
       value =
-          "select * from item where datediff('hour', now(), created) <= 2 and status='ACTIVO' and name ilike %:itemName% or description ilike %:itemName%",
+          "select * from item where TIMESTAMPDIFF(hour, now(), created) <= 2 and status='ACTIVO' and name ilike %:itemName% or description ilike %:itemName%",
       nativeQuery = true)
   List<Item> findLatestItemsByName(String itemName);
 
   @Query(
       value =
-          "select * from item where datediff('hour', now(), created) <= 2 and status='ACTIVO' and category=:category",
+          "select * from item where TIMESTAMPDIFF(hour, now(), created) <= 2 and status='ACTIVO' and category=:category",
       nativeQuery = true)
   List<Item> findLatestItemsByCategory(String category);
 
   @Query(
       value =
-          "select * from item where datediff('hour', now(), created) <= 2 and status='ACTIVO' and category=:category and name ilike %:itemName% or description ilike %:itemName%",
+          "select * from item where TIMESTAMPDIFF(hour, now(), created) <= 2 and status='ACTIVO' and category=:category and name ilike %:itemName% or description ilike %:itemName%",
       nativeQuery = true)
   List<Item> findLatestItemsByNameAndCategory(String itemName, String category);
 
@@ -54,31 +54,31 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
   @Query(
       value =
-          "select * from item where datediff('hour', now(), expiration_Date) <= 6 and status='ACTIVO'",
+          "select * from item where TIMESTAMPDIFF(hour, now(), expiration_Date) <= 6 and status='ACTIVO'",
       nativeQuery = true)
   List<Item> findNextToFinishItems();
 
   @Query(
       value =
-          "select * from item where datediff('hour', now(), expiration_Date) <= 6 and status='ACTIVO' and name ilike %:itemName% or description ilike %:itemName%",
+          "select * from item where TIMESTAMPDIFF(hour, now(), expiration_Date) <= 6 and status='ACTIVO' and name ilike %:itemName% or description ilike %:itemName%",
       nativeQuery = true)
   List<Item> findNextToFinishItemsByName(String itemName);
 
   @Query(
       value =
-          "select * from item where datediff('hour', now(), expiration_Date) <= 6 and status='ACTIVO' and category=:category",
+          "select * from item where TIMESTAMPDIFF(hour, now(), expiration_Date) <= 6 and status='ACTIVO' and category=:category",
       nativeQuery = true)
   List<Item> findNextToFinishItemsByCategory(String category);
 
   @Query(
       value =
-          "select * from item where datediff('hour', now(), expiration_Date) <= 6 and status='ACTIVO' and category=:category and name ilike %:itemName% or description ilike %:itemName%",
+          "select * from item where TIMESTAMPDIFF(hour, now(), expiration_Date) <= 6 and status='ACTIVO' and category=:category and name ilike %:itemName% or description ilike %:itemName%",
       nativeQuery = true)
   List<Item> findNextToFinishItemsByNameAndCategory(String itemName, String category);
 
   @Query(
       value =
-          "select * from item where datediff('second', now(), expiration_Date) <= 0 and status='ACTIVO'",
+          "select * from item where TIMESTAMPDIFF(second, now(), expiration_Date) <= 0 and status='ACTIVO'",
       nativeQuery = true)
   List<Item> findExpiredItems();
 
