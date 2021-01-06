@@ -25,7 +25,7 @@ public class LoadDataComponent {
   public LoadDataComponent(ItemRepository itemRepository, UserRepository userRepository) {
     this.itemRepository = itemRepository;
     this.userRepository = userRepository;
-    loadData();
+    //loadData();
   }
 
   private void loadData() {
