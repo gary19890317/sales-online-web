@@ -157,21 +157,6 @@ public class ItemService {
     }
   }
 
-  public List<Item> getLatestItems() {
-    return itemRepository
-        .findLatestItems()
-        .stream()
-        .map(
-            (item) -> {
-              byte[] image = LoadDataComponent.decompressBytes(item.getPicture());
-              item.setPictureBase64(DatatypeConverter.printBase64Binary(image));
-              item.setLatestPrice(getLatestItemPrice(item));
-              item.setRanking(rankingRepository.getAvgRanking(item.getId()));
-              return item;
-            })
-        .collect(Collectors.toCollection(ArrayList::new));
-  }
-
   public Item save(Item item) {
     return itemRepository.save(item);
   }

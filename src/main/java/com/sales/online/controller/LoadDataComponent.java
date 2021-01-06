@@ -58,8 +58,8 @@ public class LoadDataComponent {
         3);
     addItem(
         "Wii",
-        "/load/wii.jpg",
         "video_juegos",
+        "/load/wii.jpg",
         "Consola de video juego Wii",
         321,
         "2020-12-10T10:00:00",
