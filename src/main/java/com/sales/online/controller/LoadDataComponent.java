@@ -56,7 +56,7 @@ public class LoadDataComponent {
         "2020-12-27T21:19:00",
         "ACTIVO",
         3);
-    /*addItem(
+    addItem(
         "Wii",
         "/load/wii.jpg",
         "video_juegos",
@@ -64,7 +64,7 @@ public class LoadDataComponent {
         321,
         "2020-12-10T10:00:00",
         "ACTIVO",
-        0);*/
+        0);
 
     addItem(
         "Play Statio 5",
