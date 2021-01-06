@@ -2,6 +2,7 @@ package com.sales.online.model;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -102,7 +103,11 @@ public class Item {
     this.expirationDate = expirationDate;
     this.status = status;
     this.ranking = ranking;
-    this.created = Timestamp.valueOf(LocalDateTime.now());
+    //Date date_aux = new Date();
+    //System.out.println("Time zone del item actual "+ name+" "+ new Timestamp(date_aux.getTime()));
+    this.created = Timestamp.valueOf(LocalDateTime.now());//new Timestamp(date_aux.getTime());//
+    
+    
   }
 
   public long getId() {
@@ -233,6 +238,7 @@ public class Item {
         + latestPrice
         + ", expirationDate="
         + expirationDate
+        +" created: "+ created
         + ", status="
         + status
         + ", ranking="
