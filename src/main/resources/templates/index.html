@@ -54,8 +54,8 @@
 						<div class="col-md-8 col-lg-8 col-sm-6 col-xs-6">
 							<nav class="mainmenu__nav hidden-xs hidden-sm">
 								<ul class="main__menu">
-									<li class="drop"><a th:href="@{/index}">Inicio</a></li>
-									<li th:unless="${session.userLogged == null}"><a th:href="@{/addItem}">Subastar</a></li>
+									<li th:unless="${session.userLogged == null}" class="drop"><a th:href="@{/index}">Inicio</a></li>
+									<li th:unless="${session.userLogged == null}"><a th:href="@{/addItem}">Productos</a></li>
 									
 								</ul>
 							</nav>
@@ -125,8 +125,8 @@
 								<h2>
 									<a href="product-details.html" th:text="${item.name}"></a>
 								</h2>
-								<span class="quantity">QTY: 1</span> <span class="shp__price"
-									th:text="${item.latestPrice}"></span>
+								<span class="shp__price"
+									th:text="${item.offer}"></span>
 							</div>
 							<div class="remove__btn">
 								<a href="#" title="Remove this item"><i
@@ -192,7 +192,7 @@
 											src="images/icons/thum7.png"> Libros</a></li>
 									<li><a th:href="@{/index(category='electrodomesticos', name=${param.name})}"><img alt=""
 											src="images/icons/thum7.png"> Electrodométicos</a></li>
-									<li><a th:href="@{/index(category='all', name=${param.name})}"><img alt=""
+									<li><a th:href="@{/index(category='', name=${param.name})}"><img alt=""
 											src="images/icons/thum3.png"> Todas las categorías</a></li>
 								</ul>
 							</div>
@@ -255,11 +255,9 @@
 
 																<li th:onclick="'openItemDialog(' + ${item.id} + ')'"><a
 																	data-toggle="modal" data-target="#productModal"
-																	title="Quick View"
+																	title="Ver Producto"
 																	class="quick-view modal-view detail-link" href="#"><span
-																		class="ti-plus"></span></a></li>
-																<li><a title="Add TO Cart" href="cart.html"><span
-																		class="ti-shopping-cart"></span></a></li>
+																		class="ti-search"></span></a></li>
 															</ul>
 														</div>
 													</div>
@@ -452,8 +450,8 @@
 							<div class="ft__widget">
 								<h2 class="ft__title">Información</h2>
 								<ul class="footer-categories">
-									<li><a href="about.html">Acerca de nosotros</a></li>
-									<li><a href="contact.html">Contactanos</a></li>
+									<li><a href="#">Acerca de nosotros</a></li>
+									<li><a href="#">Contactanos</a></li>
 									<li><a href="#">Términos y Condiciones</a></li>
 								</ul>
 							</div>
@@ -472,9 +470,9 @@
 									</p>
 								</div>
 								<ul class="footer__menu">
-									<li><a href="index.html">Inicio</a></li>
-									<li><a href="shop.html">Producto</a></li>
-									<li><a href="contact.html">Contactanos</a></li>
+									<li><a th:href="@{/index}">Inicio</a></li>
+									<li><a th:href="@{/addItem}">Productos</a></li>
+									<li><a href="#">Contactanos</a></li>
 								</ul>
 							</div>
 						</div>

@@ -24,6 +24,8 @@
 		</a>
 		<div id="alert" class="alert alert-success" th:if="${mensaje!=null}"
 			th:text="${mensaje}" role="alert"></div>
+		<div id="alert" class="alert alert-danger" th:if="${error!=null}"
+			th:text="${error}" role="alert"></div>
 		<br>
 	</div>
 
@@ -67,9 +69,8 @@
 					<div class="form-group row">
 						<label for="input" class="col-sm-2 col-form-label">Expiración</label>
 						<div class="col-sm-10">
-							<input id="input" class="form-control is-invalid"
-								placeholder="Seleccione la fecha y hora de expiración"
-								th:field="*{expirationDate_aux}" />
+							<input type="datetime-local" class="form-control is-invalid"
+								id="input" name="input" th:field="*{expirationDate_aux}">
 						</div>
 
 					</div>
@@ -90,10 +91,10 @@
 					<div class="form-group row">
 						<label for="customFile" class="col-sm-2 col-form-label">Imagen</label>
 						<div class="custom-file col-sm-10">
-							<input name="imageFile" type="file" class=" form-control custom-file-input"
-								id="customFile"><label style="text-align: left"
-								class="custom-file-label" for="customFile">Seleccione su
-								imagen</label>
+							<input name="imageFile" type="file"
+								class=" form-control custom-file-input" id="customFile">
+							<label style="text-align: left" class="custom-file-label"
+								for="customFile">Seleccione su imagen</label>
 						</div>
 						<!-- Explorador de archivos -->
 					</div>
@@ -120,7 +121,7 @@
 								<option value="video_juegos">Video Juegos</option>
 								<option value="libros">Libros</option>
 								<option value="electrodomesticos">Electrodomesticos</option>
-								<option value="all">Otros</option>
+								<option value="">Otros</option>
 							</select>
 						</div>
 					</div>
@@ -131,22 +132,20 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" th:src="@{js/jquery-3.5.1.js}"></script>
-	<script type="text/javascript" th:src="@{js/popper.js}"></script>
-	<script type="text/javascript" th:src="@{js/bootstrap.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/js/vendor/jquery-1.12.0.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/popper.js}"></script>
+	<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 	<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js"
 		type="text/javascript"></script>
 	<script type="text/javascript">
-	$(".custom-file-input").on("change", function() {
-		  var fileName = $(this).val().split("\\").pop();
-		  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-		});
-	$('#input').datetimepicker({
-        uiLibrary: 'bootstrap4',
-        format: 'yyyy-mm-dd hh:mm:ss' ,
-        modal: true,
-        footer: true
-    });
+		$(".custom-file-input").on(
+				"change",
+				function() {
+					var fileName = $(this).val().split("\\").pop();
+					$(this).siblings(".custom-file-label").addClass("selected")
+							.html(fileName);
+				});
 	</script>
 </body>
 </html>

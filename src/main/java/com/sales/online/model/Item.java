@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Item {
@@ -20,6 +21,7 @@ public class Item {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
+  @NotBlank(message = "Rellenar el campo nombre del producto")
   private String name;
 
   private String category;
@@ -28,15 +30,23 @@ public class Item {
   private byte[] picture;
 
   private float startingPrice;
+
   private float latestPrice;
+
+  @NotBlank(message = "Rellenar el campo dirección")
   private String description;
+
   private Timestamp created;
   private Timestamp expirationDate;
 
   @Transient private String expirationDate_aux;
+
   private String status;
+
   private int ranking;
+
   @Transient private boolean active;
+
   @Transient private String pictureBase64;
 
   @ManyToOne(fetch = FetchType.LAZY)

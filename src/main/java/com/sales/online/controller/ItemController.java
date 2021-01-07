@@ -8,9 +8,13 @@ import java.util.zip.Deflater;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,40 +36,57 @@ public class ItemController {
     this.userService = userService;
   }
 
+  @InitBinder
+  public void initBinder(WebDataBinder binder) {
+    binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
+  }
+
   @PostMapping("/upload")
   public String uplaodImage(
       @ModelAttribute(name = "imgData") Item itemData,
       @RequestParam("imageFile") MultipartFile file,
+      BindingResult result,
       HttpSession httpSession,
       Model model)
       throws IOException {
-    try {
-      SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-      java.util.Date parsedDate = dateFormat.parse(itemData.getExpirationDate_aux());
-      Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
-      itemData.setExpirationDate(timestamp);
-      Item item =
-          new Item(
-              itemData.getName(),
-              itemData.getCategory(),
-              compressBytes(file.getBytes()),
-              itemData.getDescription(),
-              itemData.getStartingPrice(),
-              itemData.getExpirationDate(),
-              itemData.getStatus(),
-              0);
-      UserLogin userLogin = (UserLogin) httpSession.getAttribute("userLogged");
-      if (userLogin != null) {
-        User user = userService.findById(userLogin.getId());
-        item.setUser(user);
-        itemService.save(item);
-      } else {
-        model.addAttribute("mensaje", "No se ha iniciado sessión");
+    if (result.hasErrors()) {
+      return "addItem";
+    } else {
+      try {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm");
+        java.util.Date parsedDate = dateFormat.parse(itemData.getExpirationDate_aux());
+        Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+        itemData.setExpirationDate(timestamp);
+        Item item =
+            new Item(
+                itemData.getName(),
+                itemData.getCategory(),
+                compressBytes(file.getBytes()),
+                itemData.getDescription(),
+                itemData.getStartingPrice(),
+                itemData.getExpirationDate(),
+                itemData.getStatus(),
+                0);
+        UserLogin userLogin = (UserLogin) httpSession.getAttribute("userLogged");
+        if (userLogin != null) {
+          User user = userService.findById(userLogin.getId());
+          item.setUser(user);
+          itemService.save(item);
+          return "redirect:index";
+        } else {
+          model.addAttribute("error", "No se ha iniciado sessión");
+          return "addItem";
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+        model.addAttribute("error", "Error al guardar el producto");
+        return "addItem";
       }
-    } catch (Exception e) {
-      e.printStackTrace();
     }
-    model.addAttribute("mensaje", "Se guardó de manera exitosa");
+  }
+
+  @GetMapping("/upload")
+  public String uplaodImage(@ModelAttribute(name = "imgData") Item itemData) {
     return "addItem";
   }
 

@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sales.online.controller.LoadDataComponent;
+import com.sales.online.model.CarItem;
 import com.sales.online.model.EmailTemplate;
 import com.sales.online.model.Item;
 import com.sales.online.model.Ranking;
@@ -165,7 +166,7 @@ public class ItemService {
     return itemRepository.itemNew(name);
   }
 
-  public List<Item> getCarItems(int userId) {
+  public List<CarItem> getCarItems(int userId) {
     return subastaRepository
         .findSubastaByUser(userId)
         .stream()
@@ -173,9 +174,8 @@ public class ItemService {
             (subasta) -> {
               Item item = subasta.getItem();
               byte[] image = LoadDataComponent.decompressBytes(item.getPicture());
-              item.setPictureBase64(DatatypeConverter.printBase64Binary(image));
-              item.setLatestPrice(getLatestItemPrice(item));
-              return item;
+              return new CarItem(
+                  item.getName(), DatatypeConverter.printBase64Binary(image), subasta.getOffer());
             })
         .collect(Collectors.toCollection(ArrayList::new));
   }
